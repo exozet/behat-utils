@@ -29,7 +29,7 @@ That's it!
 
 ### JsonApiSteps
 
-The `JsonApiSteps` are helpful for
+The `JsonApiSteps` are helpful for testing json apis.
 
 ## LICENSE
 
