@@ -81,7 +81,7 @@ trait JsonApiSteps {
 
     /**
      * @Given /^(?:|ich) folgende Daten als JSON per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
-     * @Given /^(?:|I) send the following JSON data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)" schicke:$/
+     * @Given /^(?:|I) send the following JSON data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)":$/
      */
     public function sendTheFollowingJsonDataWithMethodToPage($method, $page, TableNode $valueTable)
     {
@@ -119,7 +119,7 @@ trait JsonApiSteps {
 
     /**
      * @Given /^(?:|ich) folgende Daten als Formular per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
-     * @Given /^(?:|I) send the following form data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)" schicke:$/
+     * @Given /^(?:|I) send the following form data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)":$/
      */
     public function sendTheFollowingFormDataWithMethodToPage($method, $page, TableNode $valueTable)
     {
