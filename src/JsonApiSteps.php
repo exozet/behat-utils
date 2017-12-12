@@ -104,9 +104,17 @@ trait JsonApiSteps {
         $uri = $baseUrl . $page;
         $query = array();
         $files = array();
-        $server = array(
-            "CONTENT_TYPE" => "application/json"
-        );
+
+        /*
+         * FIXME: BrowserKitDriver says serverParameters is PRIVATE for whatever reasons. Thus we have no way but
+         * reflection to access this value.
+         */
+        $class = new \ReflectionClass("Behat\Mink\Driver\BrowserKitDriver");
+        $property = $class->getProperty("serverParameters");
+        $property->setAccessible(true);
+        $server = $property->getValue($driver);
+        $server['CONTENT_TYPE'] = "application/json";
+
         $content = json_encode($values);
         $changeHistory = true;
 
@@ -142,9 +150,17 @@ trait JsonApiSteps {
         $uri = $baseUrl . $page;
         $query = array();
         $files = array();
-        $server = array(
-            "CONTENT_TYPE" => "application/x-www-form-urlencoded"
-        );
+
+        /*
+         * FIXME: BrowserKitDriver says serverParameters is PRIVATE for whatever reasons. Thus we have no way but
+         * reflection to access this value.
+         */
+        $class = new \ReflectionClass("Behat\Mink\Driver\BrowserKitDriver");
+        $property = $class->getProperty("serverParameters");
+        $property->setAccessible(true);
+        $server = $property->getValue($driver);
+        $server['CONTENT_TYPE'] = "application/x-www-form-urlencoded";
+
         $content = http_build_query($values);
         $changeHistory = true;
 
