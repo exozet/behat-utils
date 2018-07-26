@@ -9,7 +9,6 @@
   ],
   "type": "library",
   "license": "MIT",
-  "require": {},
   "autoload": {
     "psr-4": { "Exozet\\Behat\\Utils\\Base\\": "src" }
   },
