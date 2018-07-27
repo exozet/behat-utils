@@ -7,17 +7,27 @@ use \Behat\Gherkin\Node\PyStringNode;
 trait WebsiteInteractionSteps {
 
     /**
-     * @Given /^Ich scrolle zu "(?P<page>[^"]+)"$/
+     * Scrolls the element matching the given selector into view
+     * Example: Given I scroll to ".content"
+     *
+     * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
+     * @Given /^I scroll to "(?P<selector>[^"]+)"$/
      */
-    public function ifIScrollToSelector($selector)
+    public function scrollIntoView($selector)
     {
-        $this->getSession()->executeScript('document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView()');
+        $this->getSession()->executeScript(
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView()'
+        );
     }
 
     /**
-     * @Then I wait :seconds Seconds
+     * Waits synchronously for the given amount of seconds
+     * Example: When I wait 3 seconds
+     *
+     * @When /^ich (?P<seconds>\d+) Sekunden? warte$/
+     * @When /^I wait (?P<seconds>\d+) seconds?$/
      */
-    public function iWait($seconds)
+    public function wait($seconds)
     {
         $this->getSession()->wait(
             $seconds * 1000
@@ -25,9 +35,14 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * @Then Ich sehe matchende Elemente auf :selector innerhalb von :seconds Sekunden
+     * Waits asynchronously until either elements matching the given selector are existing
+     * or a given amount of seconds has passed
+     * Example: Then I see elements matching ".content" within 3 seconds
+     *
+     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
+     * @Then /^I see elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
      */
-    public function ichSeheMatchendeElementeAufInnerhalbVonSekunden($selector, $seconds)
+    public function waitForMatchingElementsWithinSpecifiedTime($selector, $seconds)
     {
         $this->getSession()->wait(
             $seconds * 1000,
@@ -36,31 +51,46 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * @Then /^(?:|I )click (?:on |)(?:|the )"([^"]*)"(?:|.*)$/
+     * Clicks the element matching the given selector
+     * Example: Then I click on "button.reset"
+     *
+     * @Then /^klicke ich auf "(?P<selector>[^"]+)"$/
+     * @Then /^I click on "(?P<selector>[^"]+)"$/
+     * @throws ExpectationException
      */
-    public function iClickOn($arg1)
+    public function clickOn($selector)
     {
-        $findName = $this->getSession()->getPage()->find("css", $arg1);
+        $findName = $this->getSession()->getPage()->find("css", $selector);
         if (!$findName) {
-            throw new Exception($arg1 . " could not be found");
+            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
         } else {
             $findName->press();
         }
     }
 
-
     /**
-     * @Then /^Unter dem Pfad "([^"]*)" existieren Anzahl "([^"]*)" Objekte mit den folgenden Werten:$/
+     * Checks, that at the given DOM path there exists exactly the given count of elements matching the given JSON data
+     * (the JSON is expected to be of the format "<CSS element selector>": "<RegEx matching the element's content>")
+     * Example: Then at path ".content" there exist 3 elements with the following values:
+     * """
+     * {
+     *   "h3": "Section \d"
+     * }
+     * """
+     *
+     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<count>\d+) Elemente mit den folgenden Werten:$/
+     * @Then /^at path "(?P<selector>[^"]+)" there exist (?P<count>\d+) elements with the following values:$/
+     * @throws ExpectationException
      */
-    public function findMultipleTextInDomElements($domSelector, $expectedValidCombination, PyStringNode $elementsToFind)
+    public function findMultipleTextInDomElements($selector, $count, PyStringNode $elementsToFind)
     {
         $elementsToFind = json_decode($elementsToFind->getRaw(),true);
         $validCombinations = 0;
 
         /** @var \Behat\Mink\Element\NodeElement $domElements */
-        $domElements = $this->getSession()->getPage()->findAll("css", $domSelector);
+        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
         if (!$domElements) {
-            throw new Exception($domSelector . " could not be found");
+            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
         }
 
         $messages = [];
@@ -103,13 +133,21 @@ trait WebsiteInteractionSteps {
             }
         }
 
-        if ($expectedValidCombination != $validCombinations) {
-            throw new Exception('expected count ' . $expectedValidCombination . ' combination not found: ' . print_r($elementsToFind, true) . 'The actual count is: ' . $validCombinations);
+        if ($count != $validCombinations) {
+            throw new ExpectationException(
+                'expected count ' . $count . ' combination not found: ' . print_r($elementsToFind, true) .
+                'The actual count is: ' . $validCombinations,
+                $this->getSession()->getDriver()
+            );
         }
     }
 
     /**
-     * @Then /^Ich starte die Session neu$/
+     * Restarts the Mink session
+     * Example: Given I restart the session
+     *
+     * @Given /^ich starte die Sitzung neu$/
+     * @Given /^I restart the session$/
      */
     public function restartSession()
     {
@@ -117,78 +155,98 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * @Then /^Ich resete die Session/
+     * Resets the Mink session
+     * Example: Given I reset the session
+     *
+     * @Given /^ich setze die Sitzung zurück$/
+     * @Given /^I reset the session$/
      */
-    public function restetSession()
+    public function resetSession()
     {
         $this->getSession()->reset();
     }
 
     #TODO Diese Methode muss noch zerteilt werden. Den Oparator las Variable raus und direkt in den Aufruf dann gießen
     /**
-     * Als Operator kann min (kleiner gleich), gleich oder max (größer gleich) gewählt werden.
-     * @Then /^Unter dem Pfad "([^"]*)" existieren "(?P<operator>(?:[^"]|\\")*)" "([^"]*)" Elemente$/
+     * Checks, that at the given DOM path there exist the given count of elements, optionally compared using a given
+     * operator ("min" or "max)
+     * Example: Then there exist max 3 elements at path ".unread-messages"
+     *
+     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<operator>("min" |"max" |))(?P<count>\d+) Elemente$/
+     * @Then /^there exist (?P<operator>(min |max |))(?P<count>\d+) elements at path "(?P<selector>[^"]+)"$/
+     * @throws ExpectationException
      */
-    public function checkCountOfElements($domSelector, $expectetedOperator, $expectedCountCombination)
+    public function checkCountOfElements($selector, $operator, $count)
     {
-        $domElements = $this->getSession()->getPage()->findAll("css", $domSelector);
+        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
 
         if (!$domElements) {
-            throw new Exception($domSelector . " could not be found");
+            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
         }
 
-        if($expectetedOperator == "min"){
-            if(count($domElements) >= $expectedCountCombination){
+        if (strcmp($operator, "min")) {
+            if (count($domElements) >= $count) {
 
-            } else{
-                throw new Exception('expected count ' . $expectedCountCombination . ' combination not found: ' . 'The actual count is: ' . count($domElements));
+            } else {
+                throw new ExpectationException(
+                    'expected at least ' . $count . ' elements matching ' . $selector . '. Actual count: ' . count($domElements),
+                    $this->getSession()->getDriver()
+                );
             }
-        } elseif ($expectetedOperator == "gleich"){
-            if($expectedCountCombination == count($domElements)){
+        } elseif (strcmp($operator, "max")) {
+            if (count($domElements) <= $count) {
+
+            } else {
+                throw new ExpectationException(
+                    'expected at most ' . $count . ' elements matching ' . $selector . '. Actual count: ' . count($domElements),
+                    $this->getSession()->getDriver()
+                );
             }
+        } else {
+            if (count($domElements) == $count) {
 
-            else{
-                throw new Exception('expected count ' . $expectedCountCombination . ' combination not found: ' . 'The actual count is: ' . count($domElements));
+            } else {
+                throw new ExpectationException(
+                    'expected exactly ' . $count . ' elements matching ' . $selector . '. Actual count: ' . count($domElements),
+                    $this->getSession()->getDriver()
+                );
             }
-        } elseif ($expectetedOperator == "max") {
-            if(count($domElements) <= $expectedCountCombination){
-
-            }
-            else{
-                throw new Exception('expected count ' . $expectedCountCombination . ' combination not found: ' . 'The actual count is: ' . count($domElements));
-            }
-        }
-
-    }
-
-
-
-    /**
-     * @Then /^Wenn Element "([^"]*)" vorhanden ist, dann klicke den "([^"]*)" Button, sonst übergehe diesen Schritt$/
-     */
-    public function ifElementFoundThenClickButton($domSelector, $button)
-    {
-        $domElement = $this->getSession()->getPage()->find("css", $domSelector);
-
-        if (!$domElement) {
-            var_dump("kein Element gefunden");
-            #TODO Eine Meldung ausgeben das, dass gesuchte Element nicht vorhanden ist.
-        }else{
-            var_dump("Element gefunden");
-            $this->iClickOn($button);
-            #$domElement->press();
         }
     }
 
     /**
-     * @Then /^Remove Focus from "([^"]*)" Element$/
+     * If a given element exists, clicks the element matching the given selector. Otherwise, does nothing (succeeds)
+     * Example: Then I click on ".modal button.close", if element ".modal" exists
+     *
+     * @Then /^klicke ich auf "(?P<clickSelector>[^"]+)", falls das Element "(?P<selector>[^"]+)" existiert$/
+     * @Then /^I click on "(?P<clickSelector>[^"]+)" if element "(?P<selector>[^"]+)" exists$/
+     * @throws ExpectationException
      */
-    public function removeFocusFromELement($domSelectorElement)
+    public function clickOnIfGivenElementExists($selector, $clickSelector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $domSelectorElement);
+        $domElement = $this->getSession()->getPage()->find("css", $selector);
 
         if (!$domElement) {
-            throw new Exception($domSelectorElement . " could not be found");
+            # Do nothing if the element was not found
+        } else {
+            $this->clickOn($clickSelector);
+        }
+    }
+
+    /**
+     * Removes the focus from the element matching the given DOM selector
+     * Example: When I remove focus from element "input.password"
+     *
+     * @When /^ich den Fokus vom Element "(?P<selector>[^"]+)" entferne$/
+     * @When /^I remove focus from element "(?P<selector>[^"]+)"$/
+     * @throws ExpectationException
+     */
+    public function removeFocusFromElement($selector)
+    {
+        $domElement = $this->getSession()->getPage()->find("css", $selector);
+
+        if (!$domElement) {
+            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
         } else {
             $domElement->blur();
         }
