@@ -93,42 +93,25 @@ trait WebsiteInteractionSteps {
             throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
         }
 
-        $messages = [];
         foreach ($domElements as $wrappingDomElementKey => $domElement) {
-            $wrappingDomElementKey++; #die qa zählt von 1 nicht von 0
-            #var_dump('---- dom number '.$wrappingDomElementKey.' element ----');
+            $wrappingDomElementKey++; # Start counting with 1 instead of 0 for better readability towards non-techies
             $matchedElements = 0;
             foreach ($elementsToFind as $elementToFind => $expectedRegex) {
-
-                #var_dump($elementToFind);
-                #var_dump($expectedRegex);
                 {
-                    #var_dump('find element: ' . $elementToFind);
                     $subDomElement = $domElement->find('css', $elementToFind);
                     if ($subDomElement) {
-                        #var_dump('found sub element: ' . $elementToFind);
                         $text = $subDomElement->getText();
                         $matches = [];
                         preg_match($expectedRegex, $text, $matches);
-                        #var_dump('search regex ' . $expectedRegex . ' in ' . $text);
                         if ($matches) {
-                            #var_dump('found: ' . $expectedRegex);
                             $matchedElements++;
-                            #var_dump($matches);
-                        } else {
-                            $messages[] = 'expected ' . $expectedRegex . ' not found in ' . $elementToFind;
                         }
-                    } else {
-                        #var_dump($elementToFind. ' not found');
                     }
                 }
 
                 if ($matchedElements == count($elementsToFind)) {
-                    #var_dump('set validCombinations true');
                     $validCombinations++;
                     break;
-                } else {
-                    #throw new Exception("unable to find elements: ".implode("\n",$messages).' in wrapping element number '.$wrappingDomElementKey);
                 }
             }
         }
