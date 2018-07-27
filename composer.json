@@ -14,6 +14,7 @@
   },
   "minimum-stability": "stable",
   "require": {
-    "behat/gherkin": "*"
+    "behat/gherkin": "*",
+    "behat/mink": "^1.7"
   }
 }
