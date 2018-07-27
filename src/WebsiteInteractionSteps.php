@@ -149,7 +149,7 @@ trait WebsiteInteractionSteps {
         $this->getSession()->reset();
     }
 
-    #TODO Diese Methode muss noch zerteilt werden. Den Oparator las Variable raus und direkt in den Aufruf dann gießen
+    # TODO Find a better way of integrating the operator into the expected count, e. g. allowing "exist >= 3 elements"
     /**
      * Checks, that at the given DOM path there exist the given count of elements, optionally compared using a given
      * operator ("min" or "max)
