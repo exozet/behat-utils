@@ -194,11 +194,4 @@ trait WebsiteInteractionSteps {
         }
     }
 
-//    public function screenshot() {
-//        file_put_contents($filepath . '/' . $filename, $this->getSession()->getScreenshot());
-//        $this->saveScreenshot();
-//        #$filedata = $this->saveScreenshot();
-//        #file_put_contents('/Documents/screenshot.png', $filedata);
-//    }
-
 }
