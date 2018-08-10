@@ -9,12 +9,12 @@
   ],
   "type": "library",
   "license": "MIT",
-  "require": {},
   "autoload": {
     "psr-4": { "Exozet\\Behat\\Utils\\Base\\": "src" }
   },
   "minimum-stability": "stable",
   "require": {
-    "behat/gherkin": "*"
+    "behat/gherkin": "*",
+    "behat/mink": "^1.7"
   }
 }
