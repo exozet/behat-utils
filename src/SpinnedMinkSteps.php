@@ -49,6 +49,103 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertPageNotContainsText
+     *
+     * @Then /^sehe ich "(?P<text>[^"]+)" nicht innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should not see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     */
+    public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
+    {
+        $seconds = (float) $seconds;
+
+        $assertPageNotContainsText = function($context) use ($text) {
+            try {
+                $context->assertPageNotContainsText($text);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($assertPageNotContainsText, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertElementContainsText
+     *
+     * Checks, that element with specified CSS contains specified text
+     * Example: Then I should see "Batman" in the "heroes_list" element
+     * Example: And I should see "Batman" in the "heroes_list" element
+     *
+     * @Then /^sehe ich "(?P<text>[^"]+)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should see "(?P<text>[^"]+)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     */
+    public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
+    {
+        $seconds = (float) $seconds;
+
+        $assertElementContainsText = function($context) use ($element, $text) {
+            try {
+                $context->assertElementContainsText($element, $text);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($assertElementContainsText, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertElementNotOnPage
+     *
+     * @Then /^sehe ich kein "(?P<element>[^"]+)" Element innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should not see an? "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     */
+    public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
+    {
+        $seconds = (float) $seconds;
+
+        $assertElementNotOnPage = function($context) use ($element) {
+            try {
+                $context->assertElementNotOnPage($element);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($assertElementNotOnPage, $seconds);
+    }
+
+    /**
+     * @see MinkContext::fillField
+     *
+     * @When /^ich "(?P<field>[^"]+)" mit "(?P<value>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden? ausfülle$/
+     * @When /^I fill in "(?P<field>[^"]+)" with "(?P<value>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     */
+    public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
+    {
+        $seconds = (float) $seconds;
+
+        $fillField = function($context) use ($field, $value) {
+            try {
+                $context->fillField($field, $value);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($fillField, $seconds);
+    }
+
+
+    /**
      * Runs a given lambda method again and again until it returns "true".
      * If the given timeout exceeds, an Exception is thrown.
      *
