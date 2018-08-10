@@ -26,6 +26,29 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertPageContainsText
+     *
+     * @Then /^sehe ich "(?P<text>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     */
+    public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
+    {
+        $seconds = (float) $seconds;
+
+        $assertPageContainsText = function($context) use ($text) {
+            try {
+                $context->assertPageContainsText($text);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($assertPageContainsText, $seconds);
+    }
+
+    /**
      * Runs a given lambda method again and again until it returns "true".
      * If the given timeout exceeds, an Exception is thrown.
      *
