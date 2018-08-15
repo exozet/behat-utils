@@ -74,10 +74,6 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementContainsText
      *
-     * Checks, that element with specified CSS contains specified text
-     * Example: Then I should see "Batman" in the "heroes_list" element
-     * Example: And I should see "Batman" in the "heroes_list" element
-     *
      * @Then /^sehe ich "(?P<text>[^"]+)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should see "(?P<text>[^"]+)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
      */
