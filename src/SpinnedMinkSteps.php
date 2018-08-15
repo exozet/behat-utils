@@ -29,8 +29,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageContainsText
      *
-     * @Then /^sehe ich "#{text}" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
-     * @Then /^I should see "#{text}" within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^sehe ich "(?P<text>(.+))" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should see "(?P<text>(.+))" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
@@ -52,8 +52,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageNotContainsText
      *
-     * @Then /^sehe ich "#{text}" nicht innerhalb von (?P<seconds>(\d+)) Sekunden?$/
-     * @Then /^I should not see "#{text}" within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^sehe ich "(?P<text>(.+))" nicht innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should not see "(?P<text>(.+))" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
@@ -75,8 +75,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementContainsText
      *
-     * @Then /^sehe ich "#{text}" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
-     * @Then /^I should see "#{text}" in the "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^sehe ich "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
@@ -98,7 +98,7 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementNotOnPage
      *
-     * @Then /^sehe ich kein "(?P<element>[^"]+)" Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^sehe ich kein "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
      * @Then /^I should not see an? "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
@@ -121,8 +121,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::fillField
      *
-     * @When /^ich "#{field}" mit "#{value}" innerhalb von (?P<seconds>(\d+)) Sekunden? ausfülle$/
-     * @When /^I fill in "#{field}" with "#{value}" within (?P<seconds>(\d+)) seconds?$/
+     * @When /^ich "(?P<field>(.+))" mit "(?P<value>(.+))" innerhalb von (?P<seconds>(\d+)) Sekunden? ausfülle$/
+     * @When /^I fill in "(?P<field>(.+))" with "(?P<value>(.+))" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
