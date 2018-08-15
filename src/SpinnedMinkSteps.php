@@ -30,8 +30,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageContainsText
      *
-     * @Then /^sehe ich "(?P<text>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should see "(?P<text>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
      *
      * @throws \Exception
      */
@@ -55,8 +55,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageNotContainsText
      *
-     * @Then /^sehe ich "(?P<text>[^"]+)" nicht innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should not see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" nicht innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should not see "(?P<text>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
      *
      * @throws \Exception
      */
@@ -80,8 +80,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementContainsText
      *
-     * @Then /^sehe ich "(?P<text>[^"]+)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should see "(?P<text>[^"]+)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
+     * @Then /^I should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
      *
      * @throws \Exception
      */
@@ -130,8 +130,8 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::fillField
      *
-     * @When /^ich "(?P<field>[^"]+)" mit "(?P<value>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden? ausfülle$/
-     * @When /^I fill in "(?P<field>[^"]+)" with "(?P<value>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @When /^ich "(?P<field>(?:[^"]|\\")*)" mit "(?P<value>(?:[^"]|\\")*)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden? ausfülle$/
+     * @When /^I fill in "(?P<field>(?:[^"]|\\")*)" with "(?P<value>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
      *
      * @throws \Exception
      */
