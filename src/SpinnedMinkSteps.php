@@ -8,6 +8,8 @@ trait SpinnedMinkSteps {
      *
      * @Then /^bin ich auf "(?P<page>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should be on "(?P<page>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function assertPageAddressWithinSpecifiedTime($page, $seconds)
     {
@@ -30,6 +32,8 @@ trait SpinnedMinkSteps {
      *
      * @Then /^sehe ich "(?P<text>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
     {
@@ -53,6 +57,8 @@ trait SpinnedMinkSteps {
      *
      * @Then /^sehe ich "(?P<text>[^"]+)" nicht innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should not see "(?P<text>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
     {
@@ -76,6 +82,8 @@ trait SpinnedMinkSteps {
      *
      * @Then /^sehe ich "(?P<text>[^"]+)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should see "(?P<text>[^"]+)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
@@ -99,6 +107,8 @@ trait SpinnedMinkSteps {
      *
      * @Then /^sehe ich kein "(?P<element>[^"]+)" Element innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
      * @Then /^I should not see an? "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
     {
@@ -122,6 +132,8 @@ trait SpinnedMinkSteps {
      *
      * @When /^ich "(?P<field>[^"]+)" mit "(?P<value>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden? ausfülle$/
      * @When /^I fill in "(?P<field>[^"]+)" with "(?P<value>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     *
+     * @throws \Exception
      */
     public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
     {
