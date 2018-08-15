@@ -6,14 +6,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageAddress
      *
-     * @Then /^bin ich auf "(?P<page>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should be on "(?P<page>[^"]+)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^bin ich auf "(?P<page>[^"]+)" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should be on "(?P<page>[^"]+)" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function assertPageAddressWithinSpecifiedTime($page, $seconds)
     {
-        $seconds = (float) $seconds;
         $assertPageAddress = function($context) use ($page) {
             try {
                 $context->assertPageAddress($page);
@@ -30,15 +29,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageContainsText
      *
-     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should see "(?P<text>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "#{text}" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should see "#{text}" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $seconds = (float) $seconds;
-
         $assertPageContainsText = function($context) use ($text) {
             try {
                 $context->assertPageContainsText($text);
@@ -55,15 +52,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertPageNotContainsText
      *
-     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" nicht innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should not see "(?P<text>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "#{text}" nicht innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should not see "#{text}" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $seconds = (float) $seconds;
-
         $assertPageNotContainsText = function($context) use ($text) {
             try {
                 $context->assertPageNotContainsText($text);
@@ -80,15 +75,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementContainsText
      *
-     * @Then /^sehe ich "(?P<text>(?:[^"]|\\")*)" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich "#{text}" im Element "(?P<element>[^"]+)" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should see "#{text}" in the "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
-        $seconds = (float) $seconds;
-
         $assertElementContainsText = function($context) use ($element, $text) {
             try {
                 $context->assertElementContainsText($element, $text);
@@ -105,15 +98,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::assertElementNotOnPage
      *
-     * @Then /^sehe ich kein "(?P<element>[^"]+)" Element innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden?$/
-     * @Then /^I should not see an? "(?P<element>[^"]+)" element within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @Then /^sehe ich kein "(?P<element>[^"]+)" Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should not see an? "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
     {
-        $seconds = (float) $seconds;
-
         $assertElementNotOnPage = function($context) use ($element) {
             try {
                 $context->assertElementNotOnPage($element);
@@ -130,15 +121,13 @@ trait SpinnedMinkSteps {
     /**
      * @see MinkContext::fillField
      *
-     * @When /^ich "(?P<field>(?:[^"]|\\")*)" mit "(?P<value>(?:[^"]|\\")*)" innerhalb von (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) Sekunden? ausfülle$/
-     * @When /^I fill in "(?P<field>(?:[^"]|\\")*)" with "(?P<value>(?:[^"]|\\")*)" within (?P<seconds>[0-9]+([.][0-9]*)?|[.][0-9]+) seconds?$/
+     * @When /^ich "#{field}" mit "#{value}" innerhalb von (?P<seconds>(\d+)) Sekunden? ausfülle$/
+     * @When /^I fill in "#{field}" with "#{value}" within (?P<seconds>(\d+)) seconds?$/
      *
      * @throws \Exception
      */
     public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
     {
-        $seconds = (float) $seconds;
-
         $fillField = function($context) use ($field, $value) {
             try {
                 $context->fillField($field, $value);
