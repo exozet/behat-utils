@@ -96,6 +96,29 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertElementOnPage
+     *
+     * @Then /^sehe ich ein "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     * @Then /^I should see an? "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementOnPageWithinSpecifiedTime($element, $seconds)
+    {
+        $assertElementOnPage = function($context) use ($element) {
+            try {
+                $context->assertElementOnPage($element);
+                return true;
+            }
+            catch (\Exception $e) {
+                // Do nothing, try again
+            }
+            return false;
+        };
+        $this->spin($assertElementOnPage, $seconds);
+    }
+
+    /**
      * @see MinkContext::assertElementNotOnPage
      *
      * @Then /^sehe ich kein "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
