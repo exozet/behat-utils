@@ -9,7 +9,9 @@ before_install:
 before_script:
   - cp .ci/* .
   - composer global require hirak/prestissimo
+  - composer global require behat/behat=^3.3
   - composer install
-  - composer require behat/behat=^3.3
 script:
-  - bin/behat
+  - pwd
+  - ls -al
+  - which behat
