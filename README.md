@@ -51,7 +51,7 @@ Then use the embedded docker-compose.yml and run a php-cli like this:
 ```console
 $ docker-compose run --rm php-cli
 www-data $ bash setup-dev.sh 
-www-data $ vendor/bin/behat -s
+www-data $ vendor/bin/behat -p local
 
 ```
 
