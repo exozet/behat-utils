@@ -35,6 +35,10 @@ The `JsonApiSteps` are helpful for testing json apis.
 
 The `WebsiteInteractionSteps` simplify DOM-based interactions with websites.
 
+### SpinnedMinkSteps
+
+The `SpinnedMinkSteps` allow calling default MinkContext steps while allowing a specified timeout.
+
 ## LICENSE
 
 The behat-utils is copyright by Exozet (http://exozet.com) and licensed under the terms of MIT License.
