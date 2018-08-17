@@ -23,3 +23,9 @@ default:
               - "--no-sandbox"
       javascript_session: selenium2
       browser_name: chrome
+
+local:
+  extensions:
+    Behat\MinkExtension:
+      selenium2:
+        wd_host:   http://host.docker.internal:9515

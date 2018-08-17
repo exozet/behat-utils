@@ -8,6 +8,7 @@ Feature: HTML Test
   @javascript
   Scenario: Press Users-Button
     When I am on "/api/html"
+    Then I should see "hateoas-notes in HTML"
     When I press "Users"
     Then I should be on "/api/html/users"
     Then I should see "Users"
