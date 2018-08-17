@@ -11,4 +11,4 @@ before_script:
   - composer install
   - composer require behat/behat=^3.3
 script:
-  - vendor/.bin/behat
+  - bin/behat
