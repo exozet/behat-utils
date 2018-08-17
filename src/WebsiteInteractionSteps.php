@@ -52,6 +52,54 @@ trait WebsiteInteractionSteps {
     }
 
     /**
+     * Waits asynchronously until either some elements matching the given selector are visible and inside the viewport
+     * or a given amount of seconds has passed
+     * Example: Then I see visible elements matching ".content" within 3 seconds
+     *
+     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende sichtbare Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
+     * @Then /^I see visible elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
+     *
+     * TODO Could be optimized by using Intersection Observer API:
+     * TODO https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+     */
+    public function waitForVisibleMatchingElementsWithinSpecifiedTime($selector, $seconds)
+    {
+        $selector = json_encode($selector);
+        $this->getSession()->wait(
+            $seconds * 1000,
+            <<<JS
+Array.from(document.querySelectorAll( {$selector} ))
+    .some(function(element) {
+        
+        // See https://stackoverflow.com/a/7557433
+        function isElementInViewport (el) {
+            //special bonus for those using jQuery
+            if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
+        
+            const rect = el.getBoundingClientRect();
+            const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+            const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+        
+            return (
+                   (rect.left >= 0)
+                && (rect.top >= 0)
+                && ((rect.left + rect.width) <= windowWidth)
+                && ((rect.top + rect.height) <= windowHeight)
+            );
+        }
+        
+        // See https://stackoverflow.com/a/21696585
+        function isElementVisible (el) {
+            return (el.offsetParent !== null);
+        }
+        
+        return isElementInViewport(element) && isElementVisible(element);
+    });
+JS
+        );
+    }
+
+    /**
      * Clicks the element matching the given selector
      * Example: Then I click on "button.reset"
      *
