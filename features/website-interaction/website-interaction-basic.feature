@@ -12,3 +12,9 @@ Feature: HTML Test
     When I press "Users"
     Then I should be on "/api/html/users"
     Then I should see "Users"
+
+  @javascript
+  Scenario: Scroll to something
+    When I am on "/api/html"
+    Then I should see "hateoas-notes in HTML"
+    Then I scroll to "button"
