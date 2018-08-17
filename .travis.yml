@@ -16,7 +16,4 @@ before_script:
   - composer install
 script:
   - pwd
-  - ls -al
-  - ls -al vendor/bin
-  - ls -al /home/travis/.composer/vendor/bin
   - vendor/bin/behat
