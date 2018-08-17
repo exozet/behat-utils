@@ -1,0 +1,17 @@
+language: php
+php:
+  - '7.1'
+addons:
+  chrome: stable
+dist: trusty
+before_install:
+  - export CHROME_PLATFORM=linux64
+  - export CHROME_VERSION=$(curl -Ss http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+  - curl -Ss http://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_$CHROME_PLATFORM.zip > chromedriver.zip && unzip chromedriver.zip && rm chromedriver.zip
+  - ./chromedriver &
+before_script:
+  - composer global require hirak/prestissimo
+  - bash setup-dev.sh
+script:
+  - pwd
+  - vendor/bin/behat
