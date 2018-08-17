@@ -2,7 +2,7 @@ default:
   # ...
   suites:
       default:
-          paths:    [ "%paths.base%/features/default" ]
+          paths:    [ "%paths.base%/features" ]
           filters:
             tags: '~@Skip'
           contexts:
