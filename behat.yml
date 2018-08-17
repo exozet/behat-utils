@@ -14,7 +14,7 @@ default:
       goutte: ~
       selenium2:
         # This will probably be the same always, if you follow the guide for browsers below.
-        wd_host: http://localhost:8643/wd/hub
+        wd_host: http://localhost:9515
         capabilities:
           chrome:
             switches:

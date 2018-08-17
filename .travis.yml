@@ -2,10 +2,11 @@ language: php
 php:
   - '7.1'
 dist: trusty
-addons:
-  chrome: stable
 before_install:
-  - google-chrome-stable --no-sandbox --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - export CHROME_PLATFORM=linux64
+  - export CHROME_VERSION=$(curl -Ss http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+  - curl -Ss http://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_$CHROME_PLATFORM.zip > chromedriver.zip && unzip chromedriver.zip && rm chromedriver.zip
+  - ./chromedriver &
 before_script:
   - composer global require hirak/prestissimo
   - bash setup-dev.sh

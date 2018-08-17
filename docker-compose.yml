@@ -1,0 +1,9 @@
+version: "3"
+services:
+  php-cli:
+    image: exozet/php-fpm:7.1.12-sudo
+    command: ""
+    entrypoint: bash
+    user: www-data
+    volumes:
+      - ./:/usr/src/app
