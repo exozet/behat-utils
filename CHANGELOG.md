@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix typos in JsonApiSteps
 - Pass HTTP headers to POST requests in JsonApiSteps
 
-## [0.1.0] - 2017-03-27
+## 0.1.0 - 2017-03-27
 ### Added
 - Add "JsonApiSteps" trait for sending, receiving and asserting JSON data
+
+[Unreleased]: https://github.com/exozet/behat-utils/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/exozet/behat-utils/compare/0.3.0...0.4.0
+[0.3.0]: https://github.com/exozet/behat-utils/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/exozet/behat-utils/compare/0.1.0...0.2.0
