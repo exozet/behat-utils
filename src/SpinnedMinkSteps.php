@@ -27,14 +27,8 @@ trait SpinnedMinkSteps {
     public function assertPageAddressWithinSpecifiedTime($page, $seconds)
     {
         $assertPageAddress = function($context) use ($page) {
-            try {
-                $context->assertPageAddress($page);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertPageAddress($page);
+            return true;
         };
         $this->spin($assertPageAddress, $seconds);
     }
@@ -63,14 +57,8 @@ trait SpinnedMinkSteps {
     public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
     {
         $assertPageContainsText = function($context) use ($text) {
-            try {
-                $context->assertPageContainsText($text);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertPageContainsText($text);
+            return true;
         };
         $this->spin($assertPageContainsText, $seconds);
     }
@@ -99,14 +87,8 @@ trait SpinnedMinkSteps {
     public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
     {
         $assertPageNotContainsText = function($context) use ($text) {
-            try {
-                $context->assertPageNotContainsText($text);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertPageNotContainsText($text);
+            return true;
         };
         $this->spin($assertPageNotContainsText, $seconds);
     }
@@ -135,14 +117,8 @@ trait SpinnedMinkSteps {
     public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
         $assertElementContainsText = function($context) use ($element, $text) {
-            try {
-                $context->assertElementContainsText($element, $text);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertElementContainsText($element, $text);
+            return true;
         };
         $this->spin($assertElementContainsText, $seconds);
     }
@@ -171,14 +147,8 @@ trait SpinnedMinkSteps {
     public function assertElementOnPageWithinSpecifiedTime($element, $seconds)
     {
         $assertElementOnPage = function($context) use ($element) {
-            try {
-                $context->assertElementOnPage($element);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertElementOnPage($element);
+            return true;
         };
         $this->spin($assertElementOnPage, $seconds);
     }
@@ -207,14 +177,8 @@ trait SpinnedMinkSteps {
     public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
     {
         $assertElementNotOnPage = function($context) use ($element) {
-            try {
-                $context->assertElementNotOnPage($element);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->assertElementNotOnPage($element);
+            return true;
         };
         $this->spin($assertElementNotOnPage, $seconds);
     }
@@ -243,14 +207,8 @@ trait SpinnedMinkSteps {
     public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
     {
         $fillField = function($context) use ($field, $value) {
-            try {
-                $context->fillField($field, $value);
-                return true;
-            }
-            catch (\Exception $e) {
-                // Do nothing, try again
-            }
-            return false;
+            $context->fillField($field, $value);
+            return true;
         };
         $this->spin($fillField, $seconds);
     }
@@ -269,8 +227,8 @@ trait SpinnedMinkSteps {
     }
 
     /**
-     * Runs a given lambda method again and again until it returns "true".
-     * If the given timeout exceeds, an Exception is thrown.
+     * Repeatedly executes a given lambda method again and again until it throws no exception anymore.
+     * If the given timeout exceeds, the last thrown exception (or, if not existing, a default Exception) is thrown.
      *
      * @param callable $lambda The method to be executed
      * @param int $timeout The maximum amount of seconds to be waited. Defaults to 5 seconds
@@ -281,6 +239,7 @@ trait SpinnedMinkSteps {
     {
         $time = time();
         $stopTime = $time + $timeout;
+        $lastException = null;
         while (time() < $stopTime)
         {
             try {
@@ -288,12 +247,16 @@ trait SpinnedMinkSteps {
                     return;
                 }
             } catch (\Exception $e) {
-                // do nothing
+                $lastException = $e;
             }
 
             usleep(250000);
         }
 
-        throw new \Exception("Spin function timed out after {$timeout} seconds");
+        if (isset($lastException)) {
+            throw $lastException;
+        } else {
+            throw new \Exception("Spin function timed out after {$timeout} seconds");
+        }
     }
 }
