@@ -3,6 +3,19 @@
 namespace Exozet\Behat\Utils\Base;
 
 trait SpinnedMinkSteps {
+
+    /**
+     * Returns the default timeout in seconds used by all steps accepting a timeout.
+     * You may override the default timeout in classes using this trait by using:
+     *   protected $defaultTimeout = 10;  // Set the default timeout to 10 seconds
+     *
+     * @return int the default timeout in seconds
+     */
+    public function getDefaultTimeoutSpinnedMink()
+    {
+        return isset($this->defaultTimeout) ? $this->defaultTimeout : 5;
+    }
+
     /**
      * @see MinkContext::assertPageAddress
      *
@@ -24,6 +37,19 @@ trait SpinnedMinkSteps {
             return false;
         };
         $this->spin($assertPageAddress, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertPageAddress
+     *
+     * @Then /^I should be on "(?P<page>[^"]+)" in time?$/
+     * @Then /^bin ich kurz darauf auf "(?P<page>[^"]+)"$/
+     *
+     * @throws \Exception
+     */
+    public function assertPageAddressWithinDefaultTimeout($page)
+    {
+        $this->assertPageAddressWithinSpecifiedTime($page, $this->getDefaultTimeoutSpinnedMink());
     }
 
     /**
@@ -50,6 +76,19 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertPageContainsText
+     *
+     * @Then /^I should see "(?P<text>(.+))" in time$/
+     * @Then /^sehe ich kurz darauf "(?P<text>(.+))"$/
+     *
+     * @throws \Exception
+     */
+    public function assertPageContainsTextWithinDefaultTimeout($text)
+    {
+        $this->assertPageContainsTextWithinSpecifiedTime($text, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::assertPageNotContainsText
      *
      * @Then /^I should not see "(?P<text>(.+))" within (?P<seconds>(\d+)) seconds?$/
@@ -70,6 +109,19 @@ trait SpinnedMinkSteps {
             return false;
         };
         $this->spin($assertPageNotContainsText, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertPageNotContainsText
+     *
+     * @Then /^I should not see "(?P<text>(.+))" in time$/
+     * @Then /^sehe ich "(?P<text>(.+))" nicht kurz darauf$/
+     *
+     * @throws \Exception
+     */
+    public function assertPageNotContainsTextWithinDefaultTimeout($text)
+    {
+        $this->assertPageNotContainsTextWithinSpecifiedTime($text, $this->getDefaultTimeoutSpinnedMink());
     }
 
     /**
@@ -96,6 +148,19 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertElementContainsText
+     *
+     * @Then /^I should see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element in time$/
+     * @Then /^sehe ich kurz darauf "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementContainsTextWithinDefaultTimeout($element, $text)
+    {
+        $this->assertElementContainsTextWithinSpecifiedTime($element, $text, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::assertElementOnPage
      *
      * @Then /^I should see an? "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
@@ -116,6 +181,19 @@ trait SpinnedMinkSteps {
             return false;
         };
         $this->spin($assertElementOnPage, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertElementOnPage
+     *
+     * @Then /^I should see an? "(?P<element>[^"]+)" element in time$/
+     * @Then /^sehe ich kurz darauf ein "(?P<element>[^"]+)"-Element$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementOnPageWithinDefaultTimeout($element)
+    {
+        $this->assertElementOnPageWithinSpecifiedTime($element, $this->getDefaultTimeoutSpinnedMink());
     }
 
     /**
@@ -142,6 +220,19 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertElementNotOnPage
+     *
+     * @Then /^I should not see an? "(?P<element>[^"]+)" element in time$/
+     * @Then /^sehe ich kurz darauf kein "(?P<element>[^"]+)"-Element$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementNotOnPageWithinDefaultTimeout($element)
+    {
+        $this->assertElementNotOnPageWithinSpecifiedTime($element, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::fillField
      *
      * @When /^I fill in "(?P<field>(.+))" with "(?P<value>(.+))" within (?P<seconds>(\d+)) seconds?$/
@@ -164,6 +255,18 @@ trait SpinnedMinkSteps {
         $this->spin($fillField, $seconds);
     }
 
+    /**
+     * @see MinkContext::fillField
+     *
+     * @When /^I fill in "(?P<field>(.+))" with "(?P<value>(.+))" in time$/
+     * @When /^ich kurz darauf "(?P<field>(.+))" mit "(?P<value>(.+))" ausfülle$/
+     *
+     * @throws \Exception
+     */
+    public function fillFieldWithinDefaultTimeout($field, $value)
+    {
+        $this->fillFieldWithinSpecifiedTime($field, $value, $this->getDefaultTimeoutSpinnedMink());
+    }
 
     /**
      * Runs a given lambda method again and again until it returns "true".

@@ -15,7 +15,7 @@ trait WebsiteInteractionSteps {
      *
      * @return int the default timeout in seconds
      */
-    public function getDefaultTimeout()
+    public function getDefaultTimeoutWebsiteInteraction()
     {
         return isset($this->defaultTimeout) ? $this->defaultTimeout : 5;
     }
@@ -55,13 +55,13 @@ trait WebsiteInteractionSteps {
      * @When /^I wait$/
      * @When /^ich warte$/
      */
-    public function wait()
+    public function waitForDefaultTimeout()
     {
-        $this->waitForSpecifiedTime($this->getDefaultTimeout());
+        $this->waitForSpecifiedTime($this->getDefaultTimeoutWebsiteInteraction());
     }
 
     /**
-     * Waits asynchronously until elements matching the given selector are existing
+     * Waits asynchronously (for a given time) until elements matching the given selector are existing
      * Example: Then I see elements matching ".content" within 3 seconds
      *
      * @Then /^I see elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
@@ -83,7 +83,21 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Waits asynchronously until some elements matching the given selector are visible and inside the viewport
+     * Waits asynchronously (for the default timeout time) until elements matching the given selector are existing
+     * Example: Then I see elements matching ".content" in time
+     *
+     * @Then /^I see elements matching "(?P<selector>[^"]+)" in time$/
+     * @Then /^sehe ich kurz darauf auf "(?P<selector>[^"]+)" passende Elemente$/
+     * @throws ExpectationException
+     */
+    public function waitForMatchingElementsWithinDefaultTimeout($selector)
+    {
+        $this->waitForMatchingElementsWithinSpecifiedTime($selector, $this->getDefaultTimeoutWebsiteInteraction());
+    }
+
+    /**
+     * Waits asynchronously (for a given time) until some elements matching the given selector are visible and inside
+     * the viewport
      * Example: Then I see visible elements matching ".content" within 3 seconds
      *
      * @Then /^I see visible elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
@@ -135,6 +149,20 @@ JS
                 $this->getSession()->getDriver()
             );
         }
+    }
+
+    /**
+     * Waits asynchronously (for the default timeout time) until some elements matching the given selector are visible
+     * and inside the viewport
+     * Example: Then I see visible elements matching ".content" in time
+     *
+     * @Then /^I see visible elements matching "(?P<selector>[^"]+)" in time$/
+     * @Then /^sehe ich kurz darauf auf "(?P<selector>[^"]+)" passende sichtbare Elemente$/
+     * @throws ExpectationException
+     */
+    public function waitForVisibleMatchingElementsWithinDefaultTimeout($selector)
+    {
+        $this->waitForVisibleMatchingElementsWithinSpecifiedTime($selector, $this->getDefaultTimeoutWebsiteInteraction());
     }
 
     /**
