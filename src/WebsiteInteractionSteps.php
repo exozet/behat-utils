@@ -3,6 +3,7 @@
 namespace Exozet\Behat\Utils\Base;
 
 use \Behat\Gherkin\Node\PyStringNode;
+use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 
 trait WebsiteInteractionSteps {
@@ -60,39 +61,45 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Waits asynchronously until either elements matching the given selector are existing
-     * or a given amount of seconds has passed
+     * Waits asynchronously until elements matching the given selector are existing
      * Example: Then I see elements matching ".content" within 3 seconds
      *
      * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @Then /^I see elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
+     * @throws ExpectationException
      */
     public function waitForMatchingElementsWithinSpecifiedTime($selector, $seconds)
     {
-        $this->getSession()->wait(
+        $didFindElements = $this->getSession()->wait(
             $seconds * 1000,
             'document.querySelectorAll(' . json_encode($selector) . ').length'
         );
+        if ($didFindElements === false) {
+            throw new ExpectationException(
+                'Element(s) matching "' . $selector . '" could not be found within ' . $seconds . ' seconds',
+                $this->getSession()->getDriver()
+            );
+        }
     }
 
     /**
-     * Waits asynchronously until either some elements matching the given selector are visible and inside the viewport
-     * or a given amount of seconds has passed
+     * Waits asynchronously until some elements matching the given selector are visible and inside the viewport
      * Example: Then I see visible elements matching ".content" within 3 seconds
      *
      * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende sichtbare Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @Then /^I see visible elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
+     * @throws ExpectationException
      *
      * TODO Could be optimized by using Intersection Observer API:
      * TODO https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
      */
     public function waitForVisibleMatchingElementsWithinSpecifiedTime($selector, $seconds)
     {
-        $selector = json_encode($selector);
-        $this->getSession()->wait(
+        $jsonSelector = json_encode($selector);
+        $didFindElements = $this->getSession()->wait(
             $seconds * 1000,
             <<<JS
-Array.from(document.querySelectorAll( {$selector} ))
+Array.from(document.querySelectorAll( {$jsonSelector} ))
     .some(function(element) {
         
         // See https://stackoverflow.com/a/7557433
@@ -121,6 +128,13 @@ Array.from(document.querySelectorAll( {$selector} ))
     });
 JS
         );
+
+        if ($didFindElements === false) {
+            throw new ExpectationException(
+                'Visisble element(s) matching "' . $selector . '" could not be found within ' . $seconds . ' seconds',
+                $this->getSession()->getDriver()
+            );
+        }
     }
 
     /**

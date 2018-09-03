@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Add "waitForVisibleMatchingElementsWithinSpecifiedTime" step that allows checking elements' visibility in viewport
+### Changed
+- WebsiteInteractionSteps with a timeout now fail correctly when element(s) matching the given selector do not exist. #6 
 
 ## [0.4.0] - 2018-08-30
 ### Added
