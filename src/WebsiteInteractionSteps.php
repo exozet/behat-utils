@@ -12,8 +12,8 @@ trait WebsiteInteractionSteps {
      * Scrolls the element matching the given selector into view
      * Example: Given I scroll to ".content"
      *
-     * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
      * @Given /^I scroll to "(?P<selector>[^"]+)"$/
+     * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
      */
     public function scrollIntoView($selector)
     {
@@ -26,8 +26,8 @@ trait WebsiteInteractionSteps {
      * Waits synchronously for the given amount of seconds
      * Example: When I wait 3 seconds
      *
-     * @When /^ich (?P<seconds>\d+) Sekunden? warte$/
      * @When /^I wait (?P<seconds>\d+) seconds?$/
+     * @When /^ich (?P<seconds>\d+) Sekunden? warte$/
      */
     public function wait($seconds)
     {
@@ -40,8 +40,8 @@ trait WebsiteInteractionSteps {
      * Waits asynchronously until elements matching the given selector are existing
      * Example: Then I see elements matching ".content" within 3 seconds
      *
-     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @Then /^I see elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
+     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @throws ExpectationException
      */
     public function waitForMatchingElementsWithinSpecifiedTime($selector, $seconds)
@@ -62,8 +62,8 @@ trait WebsiteInteractionSteps {
      * Waits asynchronously until some elements matching the given selector are visible and inside the viewport
      * Example: Then I see visible elements matching ".content" within 3 seconds
      *
-     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende sichtbare Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @Then /^I see visible elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
+     * @Then /^sehe ich auf "(?P<selector>[^"]+)" passende sichtbare Elemente innerhalb von (?P<seconds>\d+) Sekunden?$/
      * @throws ExpectationException
      *
      * TODO Could be optimized by using Intersection Observer API:
@@ -117,8 +117,8 @@ JS
      * Clicks the element matching the given selector
      * Example: Then I click on "button.reset"
      *
-     * @Then /^klicke ich auf "(?P<selector>[^"]+)"$/
      * @Then /^I click on "(?P<selector>[^"]+)"$/
+     * @Then /^klicke ich auf "(?P<selector>[^"]+)"$/
      * @throws ExpectationException
      */
     public function clickOn($selector)
@@ -141,8 +141,8 @@ JS
      * }
      * """
      *
-     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<count>\d+) Elemente mit den folgenden Werten:$/
      * @Then /^at path "(?P<selector>[^"]+)" there exist (?P<count>\d+) elements with the following values:$/
+     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<count>\d+) Elemente mit den folgenden Werten:$/
      * @throws ExpectationException
      */
     public function findMultipleTextInDomElements($selector, $count, PyStringNode $elementsToFind)
@@ -192,8 +192,8 @@ JS
      * Restarts the Mink session
      * Example: Given I restart the session
      *
-     * @Given /^ich starte die Sitzung neu$/
      * @Given /^I restart the session$/
+     * @Given /^ich starte die Sitzung neu$/
      */
     public function restartSession()
     {
@@ -204,8 +204,8 @@ JS
      * Resets the Mink session
      * Example: Given I reset the session
      *
-     * @Given /^ich setze die Sitzung zurück$/
      * @Given /^I reset the session$/
+     * @Given /^ich setze die Sitzung zurück$/
      */
     public function resetSession()
     {
@@ -218,8 +218,8 @@ JS
      * operator ("min" or "max)
      * Example: Then there exist max 3 elements at path ".unread-messages"
      *
-     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<operator>("min" |"max" |))(?P<count>\d+) Elemente$/
      * @Then /^there exist (?P<operator>(min |max |))(?P<count>\d+) elements at path "(?P<selector>[^"]+)"$/
+     * @Then /^existieren unter dem Pfad "(?P<selector>[^"]+)" (?P<operator>("min" |"max" |))(?P<count>\d+) Elemente$/
      * @throws ExpectationException
      */
     public function checkCountOfElements($selector, $operator, $count)
@@ -264,8 +264,8 @@ JS
      * If a given element exists, clicks the element matching the given selector. Otherwise, does nothing (succeeds)
      * Example: Then I click on ".modal button.close", if element ".modal" exists
      *
-     * @Then /^klicke ich auf "(?P<clickSelector>[^"]+)", falls das Element "(?P<selector>[^"]+)" existiert$/
      * @Then /^I click on "(?P<clickSelector>[^"]+)" if element "(?P<selector>[^"]+)" exists$/
+     * @Then /^klicke ich auf "(?P<clickSelector>[^"]+)", falls das Element "(?P<selector>[^"]+)" existiert$/
      * @throws ExpectationException
      */
     public function clickOnIfGivenElementExists($selector, $clickSelector)
@@ -283,8 +283,8 @@ JS
      * Removes the focus from the element matching the given DOM selector
      * Example: When I remove focus from element "input.password"
      *
-     * @When /^ich den Fokus vom Element "(?P<selector>[^"]+)" entferne$/
      * @When /^I remove focus from element "(?P<selector>[^"]+)"$/
+     * @When /^ich den Fokus vom Element "(?P<selector>[^"]+)" entferne$/
      * @throws ExpectationException
      */
     public function removeFocusFromElement($selector)
