@@ -25,9 +25,19 @@ Feature: HTML Test
     Then I see elements matching "h1" within 4 seconds
 
   @javascript
+  Scenario: Wait for matching elements within the default time interval
+    When I am on "/api/html/notes"
+    Then I see elements matching "h1" in time
+
+  @javascript
   Scenario: Wait for visible matching elements within a specified time interval
     When I am on "/api/html/notes"
     Then I see visible elements matching "h1" within 4 seconds
+
+  @javascript
+  Scenario: Wait for visible matching elements within the default time interval
+    When I am on "/api/html/notes"
+    Then I see visible elements matching "h1" in time
 
   @javascript
   Scenario: Wait for the default timeout
