@@ -8,8 +8,8 @@ use Behat\Gherkin\Node\PyStringNode;
 trait JsonApiSteps {
 
     /**
-     * @Then /^Attribut "([^"]*)" hat den Wert "([^"]*)"$/
      * @Then /^the attribute "([^"]*)" has the value "([^"]*)"$/
+     * @Then /^Attribut "([^"]*)" hat den Wert "([^"]*)"$/
      */
     public function theAttributeKeyHasTheValue($propertyName, $expectedValue) {
         $currentValue = json_decode($this->getSession()->getDriver()->getContent(), true);
@@ -20,8 +20,8 @@ trait JsonApiSteps {
     }
 
     /**
-     * @Then /^das Objekt "([^"]*)" beinhaltet:$/
      * @Then /^the object "([^"]*)" contains:$/
+     * @Then /^das Objekt "([^"]*)" beinhaltet:$/
      */
     public function objectKeyContains($propertyName, TableNode $valueTable = null, PyStringNode $pyStringNode = null){
 
@@ -49,8 +49,8 @@ trait JsonApiSteps {
     }
 
     /**
-     * @Then /^das JSON beinhaltet:$/
      * @Then /^the JSON contains:$/
+     * @Then /^das JSON beinhaltet:$/
      */
     public function jsonContains(TableNode $valueTable = null, PyStringNode $pyStringNode = null)
     {
@@ -80,8 +80,8 @@ trait JsonApiSteps {
     }
 
     /**
-     * @Given /^(?:|ich) folgende Daten als JSON per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
      * @Given /^(?:|I) send the following JSON data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)":$/
+     * @Given /^(?:|ich) folgende Daten als JSON per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
      */
     public function sendTheFollowingJsonDataWithMethodToPage($method, $page, TableNode $valueTable)
     {
@@ -126,8 +126,8 @@ trait JsonApiSteps {
     }
 
     /**
-     * @Given /^(?:|ich) folgende Daten als Formular per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
      * @Given /^(?:|I) send the following form data with "(?P<method>[^"]+)" to "(?P<page>[^"]+)":$/
+     * @Given /^(?:|ich) folgende Daten als Formular per "(?P<method>[^"]+)" nach "(?P<page>[^"]+)" schicke:$/
      */
     public function sendTheFollowingFormDataWithMethodToPage($method, $page, TableNode $valueTable)
     {
