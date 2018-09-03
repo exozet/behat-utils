@@ -1,5 +1,7 @@
 # exozet/behat-utils
 
+[![Build Status](https://travis-ci.org/exozet/behat-utils.svg?branch=master)](https://travis-ci.org/exozet/behat-utils)
+
 The `exozet/behat-utils` provides some traits for easier api testing with behat and mink.
 
 ## Usage
