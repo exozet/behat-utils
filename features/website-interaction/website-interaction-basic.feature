@@ -18,3 +18,8 @@ Feature: HTML Test
     When I am on "/api/html"
     Then I should see "hateoas-notes in HTML"
     Then I scroll to "button"
+
+  @javascript
+  Scenario: Wait for matching elements within a specified time interval
+    When I am on "/api/html/notes"
+    Then I see elements matching "h1" within 4 seconds
