@@ -8,6 +8,18 @@ use Behat\Mink\Exception\ExpectationException;
 trait WebsiteInteractionSteps {
 
     /**
+     * Returns the default timeout in seconds used by all steps accepting a timeout.
+     * You may override the default timeout in classes using this trait by using:
+     *   protected $defaultTimeout = 10;  // Set the default timeout to 10 seconds
+     *
+     * @return int the default timeout in seconds
+     */
+    public function getDefaultTimeout()
+    {
+        return isset($this->defaultTimeout) ? $this->defaultTimeout : 5;
+    }
+
+    /**
      * Scrolls the element matching the given selector into view
      * Example: Given I scroll to ".content"
      *
@@ -28,11 +40,23 @@ trait WebsiteInteractionSteps {
      * @When /^ich (?P<seconds>\d+) Sekunden? warte$/
      * @When /^I wait (?P<seconds>\d+) seconds?$/
      */
-    public function wait($seconds)
+    public function waitForSpecifiedTime($seconds)
     {
         $this->getSession()->wait(
             $seconds * 1000
         );
+    }
+
+    /**
+     * Waits synchronously for the default timeout
+     * Example: When I wait
+     *
+     * @When /^I wait$/
+     * @When /^ich warte$/
+     */
+    public function wait()
+    {
+        $this->waitForSpecifiedTime($this->getDefaultTimeout());
     }
 
     /**
