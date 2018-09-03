@@ -1,0 +1,31 @@
+default:
+  # ...
+  suites:
+      default:
+          paths:    [ "%paths.base%/features" ]
+          filters:
+            tags: '~@Skip'
+          contexts:
+            - FeatureContext
+  extensions:
+    Behat\MinkExtension:
+      default_session: goutte
+      base_url:  'http://hateoas-notes.herokuapp.com'
+      goutte: ~
+      selenium2:
+        # This will probably be the same always, if you follow the guide for browsers below.
+        wd_host: http://localhost:9515
+        capabilities:
+          chrome:
+            switches:
+              - "--headless"
+              - "--disable-gpu"
+              - "--no-sandbox"
+      javascript_session: selenium2
+      browser_name: chrome
+
+local:
+  extensions:
+    Behat\MinkExtension:
+      selenium2:
+        wd_host:   http://host.docker.internal:9515
