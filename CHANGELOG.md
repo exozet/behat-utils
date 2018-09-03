@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add "waitForVisibleMatchingElementsWithinSpecifiedTime" step that allows checking elements' visibility in viewport
 ### Changed
-- Make the English step translations the default by moving them before the German translations
+- Make the English step translations the default by moving them before the German translations. #8
 
 ## [0.4.0] - 2018-08-30
 ### Added
