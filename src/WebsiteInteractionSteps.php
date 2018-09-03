@@ -9,6 +9,18 @@ use Behat\Mink\Exception\ExpectationException;
 trait WebsiteInteractionSteps {
 
     /**
+     * Returns the default timeout in seconds used by all steps accepting a timeout.
+     * You may override the default timeout in classes using this trait by using:
+     *   protected $defaultTimeout = 10;  // Set the default timeout to 10 seconds
+     *
+     * @return int the default timeout in seconds
+     */
+    public function getDefaultTimeoutWebsiteInteraction()
+    {
+        return isset($this->defaultTimeout) ? $this->defaultTimeout : 5;
+    }
+
+    /**
      * Scrolls the element matching the given selector into view
      * Example: Given I scroll to ".content"
      *
@@ -29,7 +41,7 @@ trait WebsiteInteractionSteps {
      * @When /^I wait (?P<seconds>\d+) seconds?$/
      * @When /^ich (?P<seconds>\d+) Sekunden? warte$/
      */
-    public function wait($seconds)
+    public function waitForSpecifiedTime($seconds)
     {
         $this->getSession()->wait(
             $seconds * 1000
@@ -37,7 +49,19 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Waits asynchronously until elements matching the given selector are existing
+     * Waits synchronously for the default timeout
+     * Example: When I wait
+     *
+     * @When /^I wait$/
+     * @When /^ich warte$/
+     */
+    public function waitForDefaultTimeout()
+    {
+        $this->waitForSpecifiedTime($this->getDefaultTimeoutWebsiteInteraction());
+    }
+
+    /**
+     * Waits asynchronously (for a given time) until elements matching the given selector are existing
      * Example: Then I see elements matching ".content" within 3 seconds
      *
      * @Then /^I see elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
@@ -59,7 +83,21 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Waits asynchronously until some elements matching the given selector are visible and inside the viewport
+     * Waits asynchronously (for the default timeout time) until elements matching the given selector are existing
+     * Example: Then I see elements matching ".content" in time
+     *
+     * @Then /^I see elements matching "(?P<selector>[^"]+)" in time$/
+     * @Then /^sehe ich kurz darauf auf "(?P<selector>[^"]+)" passende Elemente$/
+     * @throws ExpectationException
+     */
+    public function waitForMatchingElementsWithinDefaultTimeout($selector)
+    {
+        $this->waitForMatchingElementsWithinSpecifiedTime($selector, $this->getDefaultTimeoutWebsiteInteraction());
+    }
+
+    /**
+     * Waits asynchronously (for a given time) until some elements matching the given selector are visible and inside
+     * the viewport
      * Example: Then I see visible elements matching ".content" within 3 seconds
      *
      * @Then /^I see visible elements matching "(?P<selector>[^"]+)" within (?P<seconds>\d+) seconds?$/
@@ -111,6 +149,20 @@ JS
                 $this->getSession()->getDriver()
             );
         }
+    }
+
+    /**
+     * Waits asynchronously (for the default timeout time) until some elements matching the given selector are visible
+     * and inside the viewport
+     * Example: Then I see visible elements matching ".content" in time
+     *
+     * @Then /^I see visible elements matching "(?P<selector>[^"]+)" in time$/
+     * @Then /^sehe ich kurz darauf auf "(?P<selector>[^"]+)" passende sichtbare Elemente$/
+     * @throws ExpectationException
+     */
+    public function waitForVisibleMatchingElementsWithinDefaultTimeout($selector)
+    {
+        $this->waitForVisibleMatchingElementsWithinSpecifiedTime($selector, $this->getDefaultTimeoutWebsiteInteraction());
     }
 
     /**
