@@ -22,9 +22,9 @@ Feature: HTML Test
   @javascript
   Scenario: Wait for matching elements within a specified time interval
     When I am on "/api/html/notes"
-    Then I see elements matching "h1" within 4 seconds
+    Then I see elements matching ".non-existent" within 4 seconds
 
   @javascript
   Scenario: Wait for visible matching elements within a specified time interval
     When I am on "/api/html/notes"
-    Then I see visible elements matching "h1" within 4 seconds
+    Then I see visible elements matching ".non-existent" within 4 seconds
