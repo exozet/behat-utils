@@ -18,3 +18,9 @@ Feature: HTML Test
     When I am on "/api/html"
     Then I should see "hateoas-notes in HTML"
     Then I scroll to "button"
+
+  @javascript
+  Scenario: Wait for the default timeout
+    When I am on "/api/html"
+    And I wait
+    Then I should be on "/api/html"
