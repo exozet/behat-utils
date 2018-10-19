@@ -377,7 +377,7 @@ JS
     }
 
     /**
-     * Check if the current time is within the specified time. Otherwise, throw a PendingException an skip the test case.
+     * Check if the current time is within the specified time. Otherwise, throw a PendingException and thus skip the test case.
      * Example: Then I click on ".modal button.close", if element ".modal" exists
      *
      * @Then /^the current time is between "(?P<fromTime>[^"]+)" and "(?P<toTime>[^"]+)", otherwise skip the test case/
