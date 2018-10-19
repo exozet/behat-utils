@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and check, within a specified time, the current url with the expacted
+- Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
 - Add "actualTimeIsInSpecifiedTime" step that allows checking the current time is in the expacted range
  
 ### Changed
