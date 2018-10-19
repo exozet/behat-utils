@@ -44,3 +44,13 @@ Feature: HTML Test
     When I am on "/api/html"
     And I wait
     Then I should be on "/api/html"
+
+  @javascript
+  Scenario: Open Url in default time
+    When I am on "/api/html" in time
+
+  @javascript
+  Scenario: Check if current time is in range
+    When the current time is between "06:00" and "20:00", otherwise skip the test case
+    And I am on "/api/html" in time
+    Then I should be on "/api/html"
