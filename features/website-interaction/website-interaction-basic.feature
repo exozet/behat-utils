@@ -48,6 +48,7 @@ Feature: HTML Test
   @javascript
   Scenario: Open Url in default time
     When I am on "/api/html" in time
+    Then I should be on "/api/html"
 
   @javascript
   Scenario: Check if current time is in range
