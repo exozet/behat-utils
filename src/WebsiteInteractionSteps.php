@@ -392,7 +392,7 @@ JS
         $toDate = date("H:i", strtotime($toTime));
 
         if($this->checkTime($currentTime,$fromDate, $toDate) == false){
-            throw new \Behat\Behat\Tester\Exception\PendingException("Die momentane Zeit: " . $currentTime . " befindet sich außerhalb der Range. From: " . $fromDate . " To: " .$toDate);
+            throw new \Behat\Behat\Tester\Exception\PendingException("The current time (" . $currentTime . ") is outside of the specified range. Specified range: from " . $fromDate . " to " .$toDate);
         }
     }
 
