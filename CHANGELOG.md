@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
-- Changed error msg from "spin"
+- Change error message in the SpinnedMinkSteps to a more descriptive one
 
 ## [0.5.0] - 2018-09-03
 ### Added
