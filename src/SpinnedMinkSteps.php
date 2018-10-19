@@ -13,7 +13,7 @@ trait SpinnedMinkSteps {
      */
     public function getDefaultTimeoutSpinnedMink()
     {
-        return isset($this->defaultTimeout) ? $this->defaultTimeout : 5;
+        return isset($this->defaultTimeout) ? $this->defaultTimeout : 15;
     }
 
     /**
@@ -235,8 +235,11 @@ trait SpinnedMinkSteps {
      * @throws \Exception
      * @see https://stackoverflow.com/a/29608256
      */
-    public function spin($lambda, $timeout = 5)
+    public function spin($lambda, $timeout)
     {
+        if(!isset($timeout)) {
+            $timeout = $this->getDefaultTimeoutSpinnedMink();
+        }
         $time = time();
         $stopTime = $time + $timeout;
         $lastException = null;
@@ -254,7 +257,7 @@ trait SpinnedMinkSteps {
         }
 
         if (isset($lastException)) {
-            throw $lastException;
+            throw new \Exception("Spin function timed out after {$timeout} seconds with: " . $lastException);
         } else {
             throw new \Exception("Spin function timed out after {$timeout} seconds");
         }

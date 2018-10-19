@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Added
+- Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
+- Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
+ 
+### Changed
+- Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
+- Change error message in the SpinnedMinkSteps to a more descriptive one
+
 ## [0.5.0] - 2018-09-03
 ### Added
 - Add "waitForVisibleMatchingElementsWithinSpecifiedTime" step that allows checking elements' visibility in viewport
