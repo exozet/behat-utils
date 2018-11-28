@@ -2,6 +2,8 @@
 
 namespace Exozet\Behat\Utils\Base;
 
+use Behat\Mink\Exception\ExpectationException;
+
 trait SpinnedMinkSteps {
 
     /**
@@ -224,6 +226,20 @@ trait SpinnedMinkSteps {
     public function fillFieldWithinDefaultTimeout($field, $value)
     {
         $this->fillFieldWithinSpecifiedTime($field, $value, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
+     * Fills in form field with specified id|name|label|value within the default timeout, using JavaScript
+     * @see MinkContext::fillField
+     *
+     * @When /^I fill in "(?P<field>(.+))" with "(?P<value>(.+))" in time using JavaScript$/
+     * @When /^ich kurz darauf "(?P<field>(.+))" mit "(?P<value>(.+))" mittels JavaScript ausfülle$/
+     * @Throws ExpectationException
+     */
+    public function fillFieldWithinDefaultTimeoutUsingJavaScript($field, $value)
+    {
+        $this->waitForMatchingElementsWithinDefaultTimeout($field);
+        $this->getSession()->evaluateScript("document.querySelectorAll('" . $field . "')[0].value='" . $value . "'");
     }
 
     /**

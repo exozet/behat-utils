@@ -447,18 +447,6 @@ JS
         $this->getSession()->getDriver()->switchToIFrame($name);
     }
 
-    # TODO Move to Behat-Utils
-    /**
-     * JS Methode
-     * @When /^I fill "(?P<value>[^"]+)" in "(?P<element>[^"]+)" in time with JS/
-     */
-    public function iFillValueInElementInTime($value, $element)
-    {
-        $this->waitForMatchingElementsWithinDefaultTimeout($element);
-        $this->getSession()->evaluateScript("document.querySelectorAll('" . $element . "')[0].value='" . $value . "'");
-
-    }
-
     /**
      * Resize the driver's window to the width of a given device type
      * Example: When I resize the window to the responsive viewport for Desktop

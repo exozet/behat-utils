@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
 - Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type
 - Add "mouseOver" step that allows hovering elements 
+- Add "fillFieldWithinDefaultTimeoutUsingJavaScript" step that allows filling input fields within a default timeout using JavaScript
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
