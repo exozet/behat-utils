@@ -440,7 +440,11 @@ JS
     }
 
     /**
-     * @When /^I switch to the IFrame "(?P<name>[^"]+)"/
+     * Switch from the currently active iFrame to the one indicated by the given name
+     * Example: When I switch to the iFrame "#checkout"
+     *
+     * @When /^I switch to the iFrame "(?P<name>[^"]+)"$/
+     * @When /^ich zum iFrame "(?P<name>[^"]+)" wechsle$/
      */
     public function activateIFrame($name)
     {

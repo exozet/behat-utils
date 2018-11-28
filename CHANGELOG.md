@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type
 - Add "mouseOver" step that allows hovering elements 
 - Add "fillFieldWithinDefaultTimeoutUsingJavaScript" step that allows filling input fields within a default timeout using JavaScript
+- Add "activateIFrame" that allows switching the currently active frame to a given iFrame
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
