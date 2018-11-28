@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "activateIFrame" that allows switching the currently active frame to a given iFrame
 - Add spinned version of MinkContext's "assertElementNotContainsText" method
 - Add "HelpUtils" trait for helper functions that can be useful for defining own steps
-- Add "assertJavascriptExpression" method to the "HelpUtils" trait wrapping the wait method of Mink's Session 
+- Add "assertJavascriptExpression" method to the "HelpUtils" trait wrapping the wait method of Mink's Session
+- Add "scrolIntoViewAlignToBottom" step that allows scrolling such that a given element is at the bottom of the viewport
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds

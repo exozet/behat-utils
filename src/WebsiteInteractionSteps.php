@@ -43,17 +43,31 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Scrolls the element matching the given selector into view
+     * Scroll the element matching the given selector into view, trying to align the element to the top of the viewport
+     * If $alignToTop is set to false, the step tries to align the element to the bottom of the viewport.
      * Example: Given I scroll to ".content"
+     *
+     * @param bool $alignToTop align the element to the viewport's top when "true" (default). Otherwise, align to bottom
      *
      * @Given /^I scroll to "(?P<selector>[^"]+)"$/
      * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
      */
-    public function scrollIntoView($selector)
+    public function scrollIntoView($selector, $alignToTop = true)
     {
         $this->getSession()->executeScript(
-            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView()'
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop) ? "true" : "false" . ')'
         );
+    }
+
+    /**
+     * @see scrollIntoView
+     *
+     * @Given /^I scroll to have "(?P<selector>[^"]+) at the bottom of the viewport$/
+     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am unteren Ende des Viewports zu haben$/
+     */
+    public function scrolIntoViewAlignToBottom($selector)
+    {
+        $this->scrollIntoView($selector, false);
     }
 
     /**
