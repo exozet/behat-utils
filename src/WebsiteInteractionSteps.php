@@ -463,7 +463,7 @@ JS
     }
 
     /**
-     * Hovers over a given element, i. e. toggles the corresponding mouse-over event
+     * Hover over a given element, i. e. toggles the corresponding mouse-over event
      * Example: When I hover over the element "button.send"
      *
      * @When /^I hover over the element "(?P<selector>[^"]+)"$/
