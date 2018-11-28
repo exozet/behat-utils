@@ -62,7 +62,7 @@ trait WebsiteInteractionSteps {
     /**
      * @see scrollIntoView
      *
-     * @Given /^I scroll to have "(?P<selector>[^"]+) at the bottom of the viewport$/
+     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the bottom of the viewport$/
      * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am unteren Ende des Viewports zu haben$/
      */
     public function scrolIntoViewAlignToBottom($selector)
