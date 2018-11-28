@@ -5,6 +5,7 @@ namespace Exozet\Behat\Utils\Base;
 use \Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
+use \Behat\Behat\Tester\Exception\PendingException;
 
 trait WebsiteInteractionSteps {
 
@@ -414,7 +415,7 @@ JS
         $toDate = date("H:i", strtotime($toTime));
 
         if($this->checkTime($currentTime,$fromDate, $toDate) == false){
-            throw new \Behat\Behat\Tester\Exception\PendingException("The current time (" . $currentTime . ") is outside of the specified range. Specified range: from " . $fromDate . " to " .$toDate);
+            throw new PendingException("The current time (" . $currentTime . ") is outside of the specified range. Specified range: from " . $fromDate . " to " .$toDate);
         }
     }
 
