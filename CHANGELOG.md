@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
+- Add "ConditionSteps" trait for conditional steps that mark tests as "pending" when specific conditions are not met
 - Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
 - Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type
 - Add "mouseOver" step that allows hovering elements 
