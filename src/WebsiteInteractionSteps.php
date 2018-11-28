@@ -29,7 +29,7 @@ trait WebsiteInteractionSteps {
      *        "Phone"   => 640
      *   );
      *
-     * œparam string deviceType one of "Desktop", "Tablet" or "Phone"
+     * @param string $deviceType one of "Desktop", "Tablet" or "Phone"
      * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Phone" to their corresponding widths
      */
     public function getDefaultResponsiveViewportWidths($deviceType)
