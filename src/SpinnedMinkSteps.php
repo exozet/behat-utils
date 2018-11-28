@@ -262,4 +262,34 @@ trait SpinnedMinkSteps {
             throw new \Exception("Spin function timed out after {$timeout} seconds");
         }
     }
+
+    /**
+     * @see MinkContext::assertElementNotContainsText
+     *
+     * @Then /^I should not see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element in time$/
+     * @Then /^sehe ich kurz darauf kein "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementNotContainsTextWithinDefaultTimeout($element, $text)
+    {
+        $this->assertElementNotContainsTextWithinSpecifiedTime($element, $text, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
+     * @see MinkContext::assertElementNotContainsText
+     *
+     * @Then /^I should not see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^sehe ich kein "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementNotContainsTextWithinSpecifiedTime($element, $text, $seconds)
+    {
+        $assertElementNotContainsText = function($context) use ($element, $text) {
+            $context->assertElementNotContainsText($element, $text);
+            return true;
+        };
+        $this->spin($assertElementNotContainsText, $seconds);
+    }
 }

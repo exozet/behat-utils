@@ -417,4 +417,55 @@ JS
         }
     }
 
+    /**
+     * @When /^I switch to the IFrame "(?P<name>[^"]+)"/
+     */
+    public function activateIFrame($name)
+    {
+        $this->getSession()->getDriver()->switchToIFrame($name);
+    }
+
+    # TODO Move to Behat-Utils
+    /**
+     * JS Methode
+     * @When /^I fill "(?P<value>[^"]+)" in "(?P<element>[^"]+)" in time with JS/
+     */
+    public function iFillValueInElementInTime($value, $element)
+    {
+        $this->waitForMatchingElementsWithinDefaultTimeout($element);
+        $this->getSession()->evaluateScript("document.querySelectorAll('" . $element . "')[0].value='" . $value . "'");
+
+    }
+
+    /**
+     * @When /^I resize the window to the responsive viewport for (Desktop|Table|Mobile)/
+     */
+    public function resizeWindowForResponsiveViewPorts($option)
+    {
+        if(strcmp($option,"Desktop")==0){
+            $this->getSession()->getDriver()->resizeWindow(1365, 900, $option);
+        }
+        elseif(strcmp($option,"Table")==0){
+            $this->getSession()->getDriver()->resizeWindow(1023, 900, $option);
+        }
+        elseif(strcmp($option,"Mobile")==0){
+            $this->getSession()->getDriver()->resizeWindow(640, 900, $option);
+        }
+    }
+
+    /**
+     * MouseOver on a Element
+     *
+     * @Then /^I hover over the Element "(?P<selector>[^"]+)"$/
+     * @Then /^Ich hovere über das Element "(?P<selector>[^"]+)"$/
+     */
+    public function mouseOver($selector){
+        $domElement = $this->getSession()->getPage()->find("css", $selector);
+
+        if (!$domElement) {
+            throw new Exception($selector . " could not be found");
+        } else {
+            $domElement->mouseOver();
+        }
+    }
 }
