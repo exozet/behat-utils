@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "mouseOver" step that allows hovering elements 
 - Add "fillFieldWithinDefaultTimeoutUsingJavaScript" step that allows filling input fields within a default timeout using JavaScript
 - Add "activateIFrame" that allows switching the currently active frame to a given iFrame
+- Add spinned version of MinkContext's "assertElementNotContainsText" method
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
