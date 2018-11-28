@@ -11,7 +11,7 @@ trait ConditionSteps {
      * Example: When the current time is between "06:00" and "20:00", otherwise skip the test case
      *
      * @When /^the current time is between "(?P<fromTime>[^"]+)" and "(?P<toTime>[^"]+)", otherwise skip the test case/
-     * @When /^die aktuelle Uhrzeit liegt zwischen "(?P<fromTime>[^"]+)" und "(?P<toTime>[^"]+)", sonst breche das Testzsenario ab/
+     * @When /^die aktuelle Uhrzeit liegt zwischen "(?P<fromTime>[^"]+)" und "(?P<toTime>[^"]+)", sonst breche das Testszenario ab/
      * @throws PendingException
      */
     public function actualTimeIsInSpecifiedTime($fromTime, $toTime){
