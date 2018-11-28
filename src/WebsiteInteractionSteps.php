@@ -475,16 +475,19 @@ JS
     }
 
     /**
-     * MouseOver on a Element
+     * Hovers over a given element, i. e. toggles the corresponding mouse-over event
+     * Example: When I hover over the element "button.send"
      *
-     * @Then /^I hover over the Element "(?P<selector>[^"]+)"$/
-     * @Then /^Ich hovere über das Element "(?P<selector>[^"]+)"$/
+     * @When /^I hover over the element "(?P<selector>[^"]+)"$/
+     * @When /^ich über das Element "(?P<selector>[^"]+)" hovere$/
+     * @throws ElementNotFoundException
      */
-    public function mouseOver($selector){
+    public function mouseOver($selector)
+    {
         $domElement = $this->getSession()->getPage()->find("css", $selector);
 
         if (!$domElement) {
-            throw new Exception($selector . " could not be found");
+            throw new ElementNotFoundException($this->getSession()->getDriver(), null, $selector);
         } else {
             $domElement->mouseOver();
         }
