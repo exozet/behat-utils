@@ -21,6 +21,28 @@ trait WebsiteInteractionSteps {
     }
 
     /**
+     * Returns the default widths in pixels used when resizing the viewport.
+     * You may override the default responsive widths in classes using this trait by using:
+     *   protected $defaultResponsiveViewportWidths = array(
+     *        "Desktop" => 1365,
+     *        "Tablet"  => 1023,
+     *        "Phone"   => 640
+     *   );
+     *
+     * œparam string deviceType one of "Desktop", "Tablet" or "Phone"
+     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Phone" to their corresponding widths
+     */
+    public function getDefaultResponsiveViewportWidths($deviceType)
+    {
+        $widthMapping = isset($this->defaultResponsiveViewportWidths) ? $this->defaultResponsiveViewportWidths : array(
+            "Desktop" => 1823,
+            "Tablet"  => 1023,
+            "Phone"   => 767
+        );
+        return $widthMapping[$deviceType];
+    }
+
+    /**
      * Scrolls the element matching the given selector into view
      * Example: Given I scroll to ".content"
      *
@@ -438,19 +460,18 @@ JS
     }
 
     /**
-     * @When /^I resize the window to the responsive viewport for (Desktop|Table|Mobile)/
+     * Resize the driver's window to the width of a given device type
+     * Example: When I resize the window to the responsive viewport for Desktop
+     *
+     * @When /^I resize the window to the responsive viewport for (Desktop|Tablet|Mobile)$/
+     * @When /^ich das Browser-Fenster auf die responsive Viewport-Größe (Desktop|Tablet|Mobile) skaliere$/
      */
-    public function resizeWindowForResponsiveViewPorts($option)
+    public function resizeWindowToResponsiveViewport($deviceType)
     {
-        if(strcmp($option,"Desktop")==0){
-            $this->getSession()->getDriver()->resizeWindow(1365, 900, $option);
-        }
-        elseif(strcmp($option,"Table")==0){
-            $this->getSession()->getDriver()->resizeWindow(1023, 900, $option);
-        }
-        elseif(strcmp($option,"Mobile")==0){
-            $this->getSession()->getDriver()->resizeWindow(640, 900, $option);
-        }
+        $this->assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
+            'The device type has to be one of "Desktop", "Tablet" and "Mobile".');
+        $width = $this->getDefaultResponsiveViewportWidths($deviceType);
+        $this->getSession()->getDriver()->resizeWindow($width, 900, $deviceType);
     }
 
     /**

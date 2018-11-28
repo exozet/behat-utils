@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
 - Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
+- Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type 
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
