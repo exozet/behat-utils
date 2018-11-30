@@ -15,14 +15,14 @@ trait ConditionSteps {
      * @throws PendingException
      */
     public function actualTimeIsInSpecifiedTime($fromTime, $toTime){
-        date_default_timezone_set("Europe/Berlin");
+        date_default_timezone_set('Europe/Berlin');
         $timestamp = time();
-        $currentTime = date("H:i",$timestamp);
-        $fromDate = date("H:i", strtotime($fromTime));
-        $toDate = date("H:i", strtotime($toTime));
+        $currentTime = date('H:i',$timestamp);
+        $fromDate = date('H:i', strtotime($fromTime));
+        $toDate = date('H:i', strtotime($toTime));
 
         if($this->checkTime($currentTime,$fromDate, $toDate) == false){
-            throw new PendingException("The current time (" . $currentTime . ") is outside of the specified range. Specified range: from " . $fromDate . " to " .$toDate);
+            throw new PendingException('The current time (' . $currentTime . ') is outside of the specified range. Specified range: from ' . $fromDate . ' to ' .$toDate);
         }
     }
 

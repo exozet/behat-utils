@@ -269,7 +269,7 @@ trait SpinnedMinkSteps {
     public function fillFieldWithinDefaultTimeoutUsingJavaScript($field, $value)
     {
         $this->waitForMatchingElementsWithinDefaultTimeout($field);
-        $this->getSession()->evaluateScript("document.querySelectorAll('" . $field . "')[0].value='" . $value . "'");
+        $this->getSession()->evaluateScript('document.querySelectorAll("' . $field . '")[0].value="' . $value . '"');
     }
 
     /**
@@ -303,9 +303,9 @@ trait SpinnedMinkSteps {
         }
 
         if (isset($lastException)) {
-            throw new \Exception("Spin function timed out after {$timeout} seconds with: " . $lastException);
+            throw new \Exception('Spin function timed out after {$timeout} seconds with: ' . $lastException);
         } else {
-            throw new \Exception("Spin function timed out after {$timeout} seconds");
+            throw new \Exception('Spin function timed out after {$timeout} seconds');
         }
     }
 }

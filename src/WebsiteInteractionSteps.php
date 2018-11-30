@@ -24,9 +24,9 @@ trait WebsiteInteractionSteps {
      * Returns the default widths in pixels used when resizing the viewport.
      * You may override the default responsive widths in classes using this trait by using:
      *   protected $defaultResponsiveViewportWidths = array(
-     *        "Desktop" => 1365,
-     *        "Tablet"  => 1023,
-     *        "Phone"   => 640
+     *        'Desktop' => 1365,
+     *        'Tablet'  => 1023,
+     *        'Phone'   => 640
      *   );
      *
      * @param string $deviceType one of "Desktop", "Tablet" or "Phone"
@@ -35,9 +35,9 @@ trait WebsiteInteractionSteps {
     public function getDefaultResponsiveViewportWidths($deviceType)
     {
         $widthMapping = isset($this->defaultResponsiveViewportWidths) ? $this->defaultResponsiveViewportWidths : array(
-            "Desktop" => 1823,
-            "Tablet"  => 1023,
-            "Phone"   => 767
+            'Desktop' => 1823,
+            'Tablet'  => 1023,
+            'Phone'   => 767
         );
         return $widthMapping[$deviceType];
     }
@@ -55,7 +55,7 @@ trait WebsiteInteractionSteps {
     public function scrollIntoView($selector, $alignToTop = true)
     {
         $this->getSession()->executeScript(
-            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop) ? "true" : "false" . ')'
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop) ? 'true' : 'false' . ')'
         );
     }
 
@@ -211,9 +211,9 @@ JS
      */
     public function clickOn($selector)
     {
-        $findName = $this->getSession()->getPage()->find("css", $selector);
+        $findName = $this->getSession()->getPage()->find('css', $selector);
         if (!$findName) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         } else {
             $findName->press();
         }
@@ -239,9 +239,9 @@ JS
         $validCombinations = 0;
 
         /** @var \Behat\Mink\Element\NodeElement $domElements */
-        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
+        $domElements = $this->getSession()->getPage()->findAll('css', $selector);
         if (!$domElements) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         }
 
         foreach ($domElements as $wrappingDomElementKey => $domElement) {
@@ -312,13 +312,13 @@ JS
      */
     public function checkCountOfElements($selector, $operator, $count)
     {
-        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
+        $domElements = $this->getSession()->getPage()->findAll('css', $selector);
 
         if (!$domElements) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         }
 
-        if (strcmp($operator, "min")) {
+        if (strcmp($operator, 'min')) {
             if (count($domElements) >= $count) {
 
             } else {
@@ -327,7 +327,7 @@ JS
                     $this->getSession()->getDriver()
                 );
             }
-        } elseif (strcmp($operator, "max")) {
+        } elseif (strcmp($operator, 'max')) {
             if (count($domElements) <= $count) {
 
             } else {
@@ -358,7 +358,7 @@ JS
      */
     public function clickOnIfGivenElementExists($selector, $clickSelector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $selector);
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
 
         if (!$domElement) {
             # Do nothing if the element was not found
@@ -377,10 +377,10 @@ JS
      */
     public function removeFocusFromElement($selector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $selector);
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
 
         if (!$domElement) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         } else {
             $domElement->blur();
         }
@@ -441,15 +441,15 @@ JS
 
     /**
      * Hover over a given element, i. e. toggles the corresponding mouse-over event
-     * Example: When I hover over the element "button.send"
+     * Example: When I hover the element "button.send"
      *
-     * @When /^I hover over the element "(?P<selector>[^"]+)"$/
+     * @When /^I hover the element "(?P<selector>[^"]+)"$/
      * @When /^ich über das Element "(?P<selector>[^"]+)" hovere$/
      * @throws ElementNotFoundException
      */
     public function mouseOver($selector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $selector);
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
 
         if (!$domElement) {
             throw new ElementNotFoundException($this->getSession()->getDriver(), null, $selector);
