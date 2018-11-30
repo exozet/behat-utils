@@ -4,7 +4,8 @@ namespace Exozet\Behat\Utils\Base;
 
 use Behat\Mink\Exception\ExpectationException;
 
-trait HelpUtils {
+trait HelpUtils
+{
 
     /**
      * Returns the default timeout in milliseconds used by JavaScript steps that involve a timeout.
@@ -20,7 +21,8 @@ trait HelpUtils {
         return $timeoutInSeconds * 1000;
     }
 
-    public function getDefaultJavascriptTime() {
+    public function getDefaultJavascriptTime()
+    {
         return 5000;
     }
 
@@ -33,7 +35,8 @@ trait HelpUtils {
      * @param int    $time      optional timeout in milliseconds that is allowed for the condition to evaluate
      * @throws ExpectationException
      */
-    public function assertJavascriptExpression($condition, $time = null) {
+    public function assertJavascriptExpression($condition, $time = null)
+    {
         if ($time === null) {
             $time = $this->getDefaultJavascriptTimeInMilliseconds();
         }

@@ -4,7 +4,8 @@ namespace Exozet\Behat\Utils\Base;
 
 use Behat\Mink\Exception\ExpectationException;
 
-trait SpinnedMinkSteps {
+trait SpinnedMinkSteps
+{
 
     /**
      * Returns the default timeout in seconds used by all steps accepting a timeout.
@@ -28,7 +29,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageAddressWithinSpecifiedTime($page, $seconds)
     {
-        $assertPageAddress = function($context) use ($page) {
+        $assertPageAddress = function ($context) use ($page) {
             $context->assertPageAddress($page);
             return true;
         };
@@ -58,7 +59,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $assertPageContainsText = function($context) use ($text) {
+        $assertPageContainsText = function ($context) use ($text) {
             $context->assertPageContainsText($text);
             return true;
         };
@@ -88,7 +89,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $assertPageNotContainsText = function($context) use ($text) {
+        $assertPageNotContainsText = function ($context) use ($text) {
             $context->assertPageNotContainsText($text);
             return true;
         };
@@ -118,7 +119,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
-        $assertElementContainsText = function($context) use ($element, $text) {
+        $assertElementContainsText = function ($context) use ($element, $text) {
             $context->assertElementContainsText($element, $text);
             return true;
         };
@@ -135,7 +136,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementNotContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
-        $assertElementNotContainsText = function($context) use ($element, $text) {
+        $assertElementNotContainsText = function ($context) use ($element, $text) {
             $context->assertElementNotContainsText($element, $text);
             return true;
         };
@@ -178,7 +179,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementOnPageWithinSpecifiedTime($element, $seconds)
     {
-        $assertElementOnPage = function($context) use ($element) {
+        $assertElementOnPage = function ($context) use ($element) {
             $context->assertElementOnPage($element);
             return true;
         };
@@ -208,7 +209,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
     {
-        $assertElementNotOnPage = function($context) use ($element) {
+        $assertElementNotOnPage = function ($context) use ($element) {
             $context->assertElementNotOnPage($element);
             return true;
         };
@@ -238,7 +239,7 @@ trait SpinnedMinkSteps {
      */
     public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
     {
-        $fillField = function($context) use ($field, $value) {
+        $fillField = function ($context) use ($field, $value) {
             $context->fillField($field, $value);
             return true;
         };
@@ -283,14 +284,13 @@ trait SpinnedMinkSteps {
      */
     public function spin($lambda, $timeout)
     {
-        if(!isset($timeout)) {
+        if (!isset($timeout)) {
             $timeout = $this->getDefaultTimeoutSpinnedMink();
         }
         $time = time();
         $stopTime = $time + $timeout;
         $lastException = null;
-        while (time() < $stopTime)
-        {
+        while (time() < $stopTime) {
             try {
                 if ($lambda($this)) {
                     return;

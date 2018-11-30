@@ -5,13 +5,15 @@ namespace Exozet\Behat\Utils\Base;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Gherkin\Node\PyStringNode;
 
-trait JsonApiSteps {
+trait JsonApiSteps
+{
 
     /**
      * @Then /^the attribute "([^"]*)" has the value "([^"]*)"$/
      * @Then /^Attribut "([^"]*)" hat den Wert "([^"]*)"$/
      */
-    public function theAttributeKeyHasTheValue($propertyName, $expectedValue) {
+    public function theAttributeKeyHasTheValue($propertyName, $expectedValue)
+    {
         $currentValue = json_decode($this->getSession()->getDriver()->getContent(), true);
         $expectedValues = array();
         $expectedValues[$propertyName] = $expectedValue;
@@ -23,8 +25,8 @@ trait JsonApiSteps {
      * @Then /^the object "([^"]*)" contains:$/
      * @Then /^das Objekt "([^"]*)" beinhaltet:$/
      */
-    public function objectKeyContains($propertyName, TableNode $valueTable = null, PyStringNode $pyStringNode = null){
-
+    public function objectKeyContains($propertyName, TableNode $valueTable = null, PyStringNode $pyStringNode = null)
+    {
         $currentValue = $this->getJsonApiValue($propertyName);
         $expectedValues = null;
         if ($pyStringNode != null) {
@@ -176,7 +178,8 @@ trait JsonApiSteps {
      * @param $propertyName
      * @return mixed
      */
-    protected function getJsonApiValue($propertyName) {
+    protected function getJsonApiValue($propertyName)
+    {
         $value = @json_decode($this->getSession()->getDriver()->getContent(), true);
         if ($value === null) {
             throw new \InvalidArgumentException('The response is not valid JSON!');
@@ -194,7 +197,8 @@ trait JsonApiSteps {
      * @param $path
      * @throws \Exception
      */
-    protected function assertDeepArray($actual, $expected, $path) {
+    protected function assertDeepArray($actual, $expected, $path)
+    {
         if (is_array($expected)) {
             foreach ($expected as $key => $value) {
                 $subPath = $path;

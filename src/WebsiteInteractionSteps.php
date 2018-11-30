@@ -6,7 +6,8 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 
-trait WebsiteInteractionSteps {
+trait WebsiteInteractionSteps
+{
 
     /**
      * Returns the default timeout in seconds used by all steps accepting a timeout.
@@ -235,7 +236,7 @@ JS
      */
     public function findMultipleTextInDomElements($selector, $count, PyStringNode $elementsToFind)
     {
-        $elementsToFind = json_decode($elementsToFind->getRaw(),true);
+        $elementsToFind = json_decode($elementsToFind->getRaw(), true);
         $validCombinations = 0;
 
         /** @var \Behat\Mink\Element\NodeElement $domElements */
@@ -301,6 +302,7 @@ JS
     }
 
     # TODO Find a better way of integrating the operator into the expected count, e. g. allowing "exist >= 3 elements"
+
     /**
      * Checks, that at the given DOM path there exist the given count of elements, optionally compared using a given
      * operator ("min" or "max)
