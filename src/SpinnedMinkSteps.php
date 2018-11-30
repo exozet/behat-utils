@@ -50,6 +50,39 @@ trait SpinnedMinkSteps
     }
 
     /**
+     * Check that the current page path is not equal to a given one, allowing the timeout interval specified
+     * Example: Then I should not be on "http://example.org" within 3 seconds
+     *
+     * @Then /^I should not be on "(?P<page>[^"]+)" within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^bin ich nicht auf "(?P<page>[^"]+)" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     *
+     * @throws \Exception
+     */
+    public function assertNotPageAddressWithinSpecifiedTime($page, $seconds)
+    {
+        $assertPageAddress = function ($context) use ($page) {
+            // Based on MinkContext::assertPageAddress -- assertNotPageAddress does not exist (yet) in MinkContext
+            $context->assertSession()->addressNotEquals($this->locatePath($page));
+            return true;
+        };
+        $this->spin($assertPageAddress, $seconds);
+    }
+
+    /**
+     * Check that the current page path is not equal to a given one, allowing the default timeout configured
+     * Example: Then I should not be on "http://example.org" in time
+     *
+     * @Then /^I should not be on "(?P<page>[^"]+)" in time$/
+     * @Then /^bin ich kurz darauf nicht auf "(?P<page>[^"]+)"$/
+     *
+     * @throws \Exception
+     */
+    public function assertNotPageAddressWithinDefaultTimeout($page)
+    {
+        $this->assertNotPageAddressWithinSpecifiedTime($page, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::assertPageContainsText
      *
      * @Then /^I should see "(?P<text>(.+))" within (?P<seconds>(\d+)) seconds?$/
