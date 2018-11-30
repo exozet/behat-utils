@@ -62,7 +62,7 @@ Then use the embedded docker-compose.yml and run a php-cli like this:
 $ docker-compose run --rm php-cli
 www-data $ bash setup-dev.sh 
 www-data $ vendor/bin/behat -p local
-
+www-data $ ./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox tests
 ```
 
 ## LICENSE

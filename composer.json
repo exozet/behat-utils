@@ -10,7 +10,7 @@
   "type": "library",
   "license": "MIT",
   "autoload": {
-    "psr-4": { "Exozet\\Behat\\Utils\\Base\\": "src" }
+    "psr-4": { "Exozet\\Behat\\Utils\\Base\\": ["src", "features/bootstrap"] }
   },
   "minimum-stability": "stable",
   "require": {
