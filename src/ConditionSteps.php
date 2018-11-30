@@ -28,7 +28,7 @@ trait ConditionSteps {
 
     /**
      * Check if the current time is within the specified time and return true or false
-     * Example: currentTime: 22:34 - fromeDate: 20:00 - toDate: 06:00 -> Result: false
+     * Example: currentTime: 22:34 - fromeDate: 20:00 - toDate: 06:00 -> Result: true
      */
     private function checkTime($currentTime, $fromDate, $toDate){
 
