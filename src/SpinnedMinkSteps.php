@@ -274,6 +274,19 @@ trait SpinnedMinkSteps
     }
 
     /**
+     * Click an element within the default timeout, using JavaScript
+     *
+     * @When /^I click on "(?P<element>[^"]+)" in time using JavaScript$/
+     * @When /^ich kurz darauf auf "(?P<element>[^"]+)" mittels JavaScript klicke$/
+     * @Throws ExpectationException
+     */
+    public function clickWithinDefaultTimeoutUsingJavaScript($element)
+    {
+        $this->waitForMatchingElementsWithinDefaultTimeout($element);
+        $this->getSession()->evaluateScript("document.querySelectorAll('" . $element . "')[0].click()");
+    }
+
+    /**
      * Repeatedly executes a given lambda method again and again until it throws no exception anymore.
      * If the given timeout exceeds, the last thrown exception (or, if not existing, a default Exception) is thrown.
      *

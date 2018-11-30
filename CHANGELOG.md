@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "HelpUtils" trait for helper functions that can be useful for defining own steps
 - Add "assertJavascriptExpression" method to the "HelpUtils" trait wrapping the wait method of Mink's Session
 - Add "scrolIntoViewAlignToBottom" step that allows scrolling such that a given element is at the bottom of the viewport
+- Add "clickWithinDefaultTimeoutUsingJavaScript" step that allows clicking an element via JavaScript within the default timeout configured
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
