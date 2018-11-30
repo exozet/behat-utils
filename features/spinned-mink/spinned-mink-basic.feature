@@ -12,6 +12,16 @@ Feature: Spinned MinkContext step variants
     Then I should be on "/api/html" within 3 seconds
 
   @javascript
+  Scenario: assetNotPageAddress within the default time interval
+    Given I am on "/api/html"
+    Then I should not be on "/api/another-uri" in time
+
+  @javascript
+  Scenario: assetNotPageAddress within a specified time interval
+    Given I am on "/api/html"
+    Then I should not be on "/api/another-uri" within 3 seconds
+
+  @javascript
   Scenario: assertPageContainsText within default time interval
     Given I am on "/api/html"
     Then I should see "Home" in time
