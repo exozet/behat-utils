@@ -2,9 +2,9 @@
 
 namespace Exozet\Behat\Utils\Base;
 
-use \Behat\Gherkin\Node\PyStringNode;
-use \Behat\Mink\Exception\ElementNotFoundException;
-use \Behat\Mink\Exception\ExpectationException;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Exception\ExpectationException;
 
 trait WebsiteInteractionSteps {
 

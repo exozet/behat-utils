@@ -2,7 +2,7 @@
 
 namespace Exozet\Behat\Utils\Base;
 
-use \Behat\Mink\Exception\ExpectationException;
+use Behat\Mink\Exception\ExpectationException;
 
 trait HelpUtils {
 

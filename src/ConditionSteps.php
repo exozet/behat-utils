@@ -2,7 +2,7 @@
 
 namespace Exozet\Behat\Utils\Base;
 
-use \Behat\Behat\Tester\Exception\PendingException;
+use Behat\Behat\Tester\Exception\PendingException;
 
 trait ConditionSteps {
 
