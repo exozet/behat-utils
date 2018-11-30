@@ -71,7 +71,7 @@ class ConditionStepsTest extends TestCase
         $this->featureContext->actualTimeIsInSpecifiedTime('22:00', '6:00');
     }
 
-    public function testDoesSuccessfullyCheckWhetherCurrentTimeIsWithingATimeIntervalSpanningExactlyForTheCurrentTime()
+    public function testDoesSuccessfullyCheckWhetherCurrentTimeIsWithinATimeIntervalSpanningExactlyForTheCurrentTime()
     {
         self::$now = strtotime('6:00');
         $this->assertNull($this->featureContext->actualTimeIsInSpecifiedTime('6:00', '6:00'));
