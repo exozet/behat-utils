@@ -6,7 +6,7 @@ default:
           filters:
             tags: '~@Skip'
           contexts:
-            - FeatureContext
+            - Exozet\Behat\Utils\Test\FeatureContext
   extensions:
     Behat\MinkExtension:
       default_session: goutte

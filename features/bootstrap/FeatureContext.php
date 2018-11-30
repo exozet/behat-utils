@@ -1,6 +1,6 @@
 <?php
 
-namespace Exozet\Behat\Utils\Base;
+namespace Exozet\Behat\Utils\Test;
 
 class FeatureContext extends \Behat\MinkExtension\Context\MinkContext {
     use \Exozet\Behat\Utils\Base\JsonApiSteps;

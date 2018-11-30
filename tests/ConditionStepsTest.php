@@ -4,6 +4,7 @@ namespace Exozet\Behat\Utils\Base;
 
 use Behat\Behat\Tester\Exception\PendingException;
 use PHPUnit\Framework\TestCase;
+use Exozet\Behat\Utils\Test\FeatureContext;
 
 /**
  * Override time() in current namespace for testing
