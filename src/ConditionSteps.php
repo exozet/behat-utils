@@ -34,7 +34,7 @@ trait ConditionSteps
      */
     private function checkTime($currentTime, $fromDate, $toDate)
     {
-        if ($fromDate < $toDate) {
+        if ($fromDate <= $toDate) {
             if (($currentTime >= $fromDate) && ($currentTime <= $toDate)) {
                 return true;
             } else {
