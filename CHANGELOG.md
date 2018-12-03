@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
+- Add "ConditionSteps" trait for conditional steps that mark tests as "pending" when specific conditions are not met
 - Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
+- Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type
+- Add "mouseOver" step that allows hovering elements 
+- Add "fillFieldWithinDefaultTimeoutUsingJavaScript" step that allows filling input fields within a default timeout using JavaScript
+- Add "activateIFrame" that allows switching the currently active frame to a given iFrame
+- Add spinned version of MinkContext's "assertElementNotContainsText" method
+- Add "HelpUtils" trait for helper functions that can be useful for defining own steps
+- Add "assertJavascriptExpression" method to the "HelpUtils" trait wrapping the wait method of Mink's Session
+- Add "scrolIntoViewAlignToBottom" step that allows scrolling such that a given element is at the bottom of the viewport
+- Add "clickWithinDefaultTimeoutUsingJavaScript" step that allows clicking an element via JavaScript within the default timeout configured
+- Add "assertNotPageAddressWithinSpecifiedTime" and "assertNotPageAddressWithinDefaultTimeout" steps that allow asserting that the driver is not on a given page path
  
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds

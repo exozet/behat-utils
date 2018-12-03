@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/exozet/behat-utils.svg?branch=master)](https://travis-ci.org/exozet/behat-utils)
 
-The `exozet/behat-utils` provides some traits for easier api testing with behat and mink.
+The `exozet/behat-utils` provide some traits for easier testing of websites and web services using Behat and Mink.
 
 ## Usage
 
@@ -31,7 +31,7 @@ That's it!
 
 ### JsonApiSteps
 
-The `JsonApiSteps` are helpful for testing json apis.
+The `JsonApiSteps` are helpful for testing JSON APIs.
 
 ### WebsiteInteractionSteps
 
@@ -40,6 +40,14 @@ The `WebsiteInteractionSteps` simplify DOM-based interactions with websites.
 ### SpinnedMinkSteps
 
 The `SpinnedMinkSteps` allow calling default MinkContext steps while allowing a specified timeout.
+
+### ConditionSteps
+
+The `ConditionSteps` offer steps that only continue the test execution under specific conditions, marking the tests as "Pending" otherwise.
+
+### HelpUtils
+
+The `HelpUtils` offer helper functions that can be useful for defining own steps.
 
 ## Development of behat-utils
 
@@ -54,7 +62,7 @@ Then use the embedded docker-compose.yml and run a php-cli like this:
 $ docker-compose run --rm php-cli
 www-data $ bash setup-dev.sh 
 www-data $ vendor/bin/behat -p local
-
+www-data $ ./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox tests
 ```
 
 ## LICENSE

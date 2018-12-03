@@ -2,11 +2,12 @@
 
 namespace Exozet\Behat\Utils\Base;
 
-use \Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 
-trait WebsiteInteractionSteps {
+trait WebsiteInteractionSteps
+{
 
     /**
      * Returns the default timeout in seconds used by all steps accepting a timeout.
@@ -21,17 +22,53 @@ trait WebsiteInteractionSteps {
     }
 
     /**
-     * Scrolls the element matching the given selector into view
+     * Returns the default widths in pixels used when resizing the viewport.
+     * You may override the default responsive widths in classes using this trait by using:
+     *   protected $defaultResponsiveViewportWidths = array(
+     *        'Desktop' => 1365,
+     *        'Tablet'  => 1023,
+     *        'Phone'   => 640
+     *   );
+     *
+     * @param string $deviceType one of "Desktop", "Tablet" or "Phone"
+     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Phone" to their corresponding widths
+     */
+    public function getDefaultResponsiveViewportWidths($deviceType)
+    {
+        $widthMapping = isset($this->defaultResponsiveViewportWidths) ? $this->defaultResponsiveViewportWidths : array(
+            'Desktop' => 1823,
+            'Tablet'  => 1023,
+            'Phone'   => 767
+        );
+        return $widthMapping[$deviceType];
+    }
+
+    /**
+     * Scroll the element matching the given selector into view, trying to align the element to the top of the viewport
+     * If $alignToTop is set to false, the step tries to align the element to the bottom of the viewport.
      * Example: Given I scroll to ".content"
+     *
+     * @param bool $alignToTop align the element to the viewport's top when "true" (default). Otherwise, align to bottom
      *
      * @Given /^I scroll to "(?P<selector>[^"]+)"$/
      * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
      */
-    public function scrollIntoView($selector)
+    public function scrollIntoView($selector, $alignToTop = true)
     {
         $this->getSession()->executeScript(
-            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView()'
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop) ? 'true' : 'false' . ')'
         );
+    }
+
+    /**
+     * @see scrollIntoView
+     *
+     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the bottom of the viewport$/
+     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am unteren Ende des Viewports zu haben$/
+     */
+    public function scrolIntoViewAlignToBottom($selector)
+    {
+        $this->scrollIntoView($selector, false);
     }
 
     /**
@@ -175,9 +212,9 @@ JS
      */
     public function clickOn($selector)
     {
-        $findName = $this->getSession()->getPage()->find("css", $selector);
+        $findName = $this->getSession()->getPage()->find('css', $selector);
         if (!$findName) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         } else {
             $findName->press();
         }
@@ -199,13 +236,13 @@ JS
      */
     public function findMultipleTextInDomElements($selector, $count, PyStringNode $elementsToFind)
     {
-        $elementsToFind = json_decode($elementsToFind->getRaw(),true);
+        $elementsToFind = json_decode($elementsToFind->getRaw(), true);
         $validCombinations = 0;
 
         /** @var \Behat\Mink\Element\NodeElement $domElements */
-        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
+        $domElements = $this->getSession()->getPage()->findAll('css', $selector);
         if (!$domElements) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         }
 
         foreach ($domElements as $wrappingDomElementKey => $domElement) {
@@ -265,6 +302,7 @@ JS
     }
 
     # TODO Find a better way of integrating the operator into the expected count, e. g. allowing "exist >= 3 elements"
+
     /**
      * Checks, that at the given DOM path there exist the given count of elements, optionally compared using a given
      * operator ("min" or "max)
@@ -276,13 +314,13 @@ JS
      */
     public function checkCountOfElements($selector, $operator, $count)
     {
-        $domElements = $this->getSession()->getPage()->findAll("css", $selector);
+        $domElements = $this->getSession()->getPage()->findAll('css', $selector);
 
         if (!$domElements) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         }
 
-        if (strcmp($operator, "min")) {
+        if (strcmp($operator, 'min')) {
             if (count($domElements) >= $count) {
 
             } else {
@@ -291,7 +329,7 @@ JS
                     $this->getSession()->getDriver()
                 );
             }
-        } elseif (strcmp($operator, "max")) {
+        } elseif (strcmp($operator, 'max')) {
             if (count($domElements) <= $count) {
 
             } else {
@@ -322,7 +360,7 @@ JS
      */
     public function clickOnIfGivenElementExists($selector, $clickSelector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $selector);
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
 
         if (!$domElement) {
             # Do nothing if the element was not found
@@ -341,10 +379,10 @@ JS
      */
     public function removeFocusFromElement($selector)
     {
-        $domElement = $this->getSession()->getPage()->find("css", $selector);
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
 
         if (!$domElement) {
-            throw new ExpectationException($selector . " could not be found", $this->getSession()->getDriver());
+            throw new ExpectationException($selector . ' could not be found', $this->getSession()->getDriver());
         } else {
             $domElement->blur();
         }
@@ -377,44 +415,48 @@ JS
     }
 
     /**
-     * Check if the current time is within the specified time. Otherwise, throw a PendingException and thus skip the test case.
-     * Example: When the current time is between "06:00" and "20:00", otherwise skip the test case
+     * Switch from the currently active iFrame to the one indicated by the given name
+     * Example: When I switch to the iFrame "#checkout"
      *
-     * @When /^the current time is between "(?P<fromTime>[^"]+)" and "(?P<toTime>[^"]+)", otherwise skip the test case/
-     * @When /^die aktuelle Uhrzeit liegt zwischen "(?P<fromTime>[^"]+)" und "(?P<toTime>[^"]+)", sonst breche das Testzsenario ab/
-     * @throws PendingException
+     * @When /^I switch to the iFrame "(?P<name>[^"]+)"$/
+     * @When /^ich zum iFrame "(?P<name>[^"]+)" wechsle$/
      */
-    public function actualTimeIsInSpecifiedTime($fromTime, $toTime){
-        date_default_timezone_set("Europe/Berlin");
-        $timestamp = time();
-        $currentTime = date("H:i",$timestamp);
-        $fromDate = date("H:i", strtotime($fromTime));
-        $toDate = date("H:i", strtotime($toTime));
-
-        if($this->checkTime($currentTime,$fromDate, $toDate) == false){
-            throw new \Behat\Behat\Tester\Exception\PendingException("The current time (" . $currentTime . ") is outside of the specified range. Specified range: from " . $fromDate . " to " .$toDate);
-        }
+    public function activateIFrame($name)
+    {
+        $this->getSession()->getDriver()->switchToIFrame($name);
     }
 
     /**
-     * Check if the current time is within the specified time and return true or false
-     * Example: currentTime: 22:34 - fromeDate: 20:00 - toDate: 06:00 -> Result: false
+     * Resize the driver's window to the width of a given device type
+     * Example: When I resize the window to the responsive viewport for Desktop
+     *
+     * @When /^I resize the window to the responsive viewport for (Desktop|Tablet|Mobile)$/
+     * @When /^ich das Browser-Fenster auf die responsive Viewport-Größe (Desktop|Tablet|Mobile) skaliere$/
      */
-    private function checkTime($currentTime, $fromDate, $toDate){
-
-        if($fromDate < $toDate){
-            if(($currentTime >= $fromDate) && ($currentTime <= $toDate)) {
-                return true;
-            }else {
-                return false;
-            }
-        }elseif ($fromDate > $toDate){
-            if(($currentTime >= $fromDate) || ($currentTime <= $toDate)) {
-                return true;
-            }else {
-                return false;
-            }
-        }
+    public function resizeWindowToResponsiveViewport($deviceType)
+    {
+        $this->assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
+            'The device type has to be one of "Desktop", "Tablet" and "Mobile".');
+        $width = $this->getDefaultResponsiveViewportWidths($deviceType);
+        $this->getSession()->getDriver()->resizeWindow($width, 900, $deviceType);
     }
 
+    /**
+     * Hover over a given element, i. e. toggles the corresponding mouse-over event
+     * Example: When I hover the element "button.send"
+     *
+     * @When /^I hover the element "(?P<selector>[^"]+)"$/
+     * @When /^ich über das Element "(?P<selector>[^"]+)" hovere$/
+     * @throws ElementNotFoundException
+     */
+    public function mouseOver($selector)
+    {
+        $domElement = $this->getSession()->getPage()->find('css', $selector);
+
+        if (!$domElement) {
+            throw new ElementNotFoundException($this->getSession()->getDriver(), null, $selector);
+        } else {
+            $domElement->mouseOver();
+        }
+    }
 }

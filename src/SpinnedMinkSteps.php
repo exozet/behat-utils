@@ -2,7 +2,10 @@
 
 namespace Exozet\Behat\Utils\Base;
 
-trait SpinnedMinkSteps {
+use Behat\Mink\Exception\ExpectationException;
+
+trait SpinnedMinkSteps
+{
 
     /**
      * Returns the default timeout in seconds used by all steps accepting a timeout.
@@ -26,7 +29,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageAddressWithinSpecifiedTime($page, $seconds)
     {
-        $assertPageAddress = function($context) use ($page) {
+        $assertPageAddress = function ($context) use ($page) {
             $context->assertPageAddress($page);
             return true;
         };
@@ -47,6 +50,39 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * Check that the current page path is not equal to a given one, allowing the timeout interval specified
+     * Example: Then I should not be on "http://example.org" within 3 seconds
+     *
+     * @Then /^I should not be on "(?P<page>[^"]+)" within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^bin ich nicht auf "(?P<page>[^"]+)" innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     *
+     * @throws \Exception
+     */
+    public function assertNotPageAddressWithinSpecifiedTime($page, $seconds)
+    {
+        $assertPageAddress = function ($context) use ($page) {
+            // Based on MinkContext::assertPageAddress -- assertNotPageAddress does not exist (yet) in MinkContext
+            $context->assertSession()->addressNotEquals($this->locatePath($page));
+            return true;
+        };
+        $this->spin($assertPageAddress, $seconds);
+    }
+
+    /**
+     * Check that the current page path is not equal to a given one, allowing the default timeout configured
+     * Example: Then I should not be on "http://example.org" in time
+     *
+     * @Then /^I should not be on "(?P<page>[^"]+)" in time$/
+     * @Then /^bin ich kurz darauf nicht auf "(?P<page>[^"]+)"$/
+     *
+     * @throws \Exception
+     */
+    public function assertNotPageAddressWithinDefaultTimeout($page)
+    {
+        $this->assertNotPageAddressWithinSpecifiedTime($page, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::assertPageContainsText
      *
      * @Then /^I should see "(?P<text>(.+))" within (?P<seconds>(\d+)) seconds?$/
@@ -56,7 +92,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $assertPageContainsText = function($context) use ($text) {
+        $assertPageContainsText = function ($context) use ($text) {
             $context->assertPageContainsText($text);
             return true;
         };
@@ -86,7 +122,7 @@ trait SpinnedMinkSteps {
      */
     public function assertPageNotContainsTextWithinSpecifiedTime($text, $seconds)
     {
-        $assertPageNotContainsText = function($context) use ($text) {
+        $assertPageNotContainsText = function ($context) use ($text) {
             $context->assertPageNotContainsText($text);
             return true;
         };
@@ -116,11 +152,28 @@ trait SpinnedMinkSteps {
      */
     public function assertElementContainsTextWithinSpecifiedTime($element, $text, $seconds)
     {
-        $assertElementContainsText = function($context) use ($element, $text) {
+        $assertElementContainsText = function ($context) use ($element, $text) {
             $context->assertElementContainsText($element, $text);
             return true;
         };
         $this->spin($assertElementContainsText, $seconds);
+    }
+
+    /**
+     * @see MinkContext::assertElementNotContainsText
+     *
+     * @Then /^I should not see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
+     * @Then /^sehe ich kein "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element innerhalb von (?P<seconds>(\d+)) Sekunden?$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementNotContainsTextWithinSpecifiedTime($element, $text, $seconds)
+    {
+        $assertElementNotContainsText = function ($context) use ($element, $text) {
+            $context->assertElementNotContainsText($element, $text);
+            return true;
+        };
+        $this->spin($assertElementNotContainsText, $seconds);
     }
 
     /**
@@ -137,6 +190,19 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * @see MinkContext::assertElementNotContainsText
+     *
+     * @Then /^I should not see "(?P<text>(.+))" in the "(?P<element>[^"]+)" element in time$/
+     * @Then /^sehe ich kurz darauf kein "(?P<text>(.+))" im "(?P<element>[^"]+)"-Element$/
+     *
+     * @throws \Exception
+     */
+    public function assertElementNotContainsTextWithinDefaultTimeout($element, $text)
+    {
+        $this->assertElementNotContainsTextWithinSpecifiedTime($element, $text, $this->getDefaultTimeoutSpinnedMink());
+    }
+
+    /**
      * @see MinkContext::assertElementOnPage
      *
      * @Then /^I should see an? "(?P<element>[^"]+)" element within (?P<seconds>(\d+)) seconds?$/
@@ -146,7 +212,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementOnPageWithinSpecifiedTime($element, $seconds)
     {
-        $assertElementOnPage = function($context) use ($element) {
+        $assertElementOnPage = function ($context) use ($element) {
             $context->assertElementOnPage($element);
             return true;
         };
@@ -176,7 +242,7 @@ trait SpinnedMinkSteps {
      */
     public function assertElementNotOnPageWithinSpecifiedTime($element, $seconds)
     {
-        $assertElementNotOnPage = function($context) use ($element) {
+        $assertElementNotOnPage = function ($context) use ($element) {
             $context->assertElementNotOnPage($element);
             return true;
         };
@@ -206,7 +272,7 @@ trait SpinnedMinkSteps {
      */
     public function fillFieldWithinSpecifiedTime($field, $value, $seconds)
     {
-        $fillField = function($context) use ($field, $value) {
+        $fillField = function ($context) use ($field, $value) {
             $context->fillField($field, $value);
             return true;
         };
@@ -227,6 +293,33 @@ trait SpinnedMinkSteps {
     }
 
     /**
+     * Fills in form field with specified id|name|label|value within the default timeout, using JavaScript
+     * @see MinkContext::fillField
+     *
+     * @When /^I fill in "(?P<field>(.+))" with "(?P<value>(.+))" in time using JavaScript$/
+     * @When /^ich kurz darauf "(?P<field>(.+))" mit "(?P<value>(.+))" mittels JavaScript ausfülle$/
+     * @Throws ExpectationException
+     */
+    public function fillFieldWithinDefaultTimeoutUsingJavaScript($field, $value)
+    {
+        $this->waitForMatchingElementsWithinDefaultTimeout($field);
+        $this->getSession()->evaluateScript('document.querySelectorAll("' . $field . '")[0].value="' . $value . '"');
+    }
+
+    /**
+     * Click an element within the default timeout, using JavaScript
+     *
+     * @When /^I click on "(?P<element>[^"]+)" in time using JavaScript$/
+     * @When /^ich kurz darauf auf "(?P<element>[^"]+)" mittels JavaScript klicke$/
+     * @Throws ExpectationException
+     */
+    public function clickWithinDefaultTimeoutUsingJavaScript($element)
+    {
+        $this->waitForMatchingElementsWithinDefaultTimeout($element);
+        $this->getSession()->evaluateScript("document.querySelectorAll('" . $element . "')[0].click()");
+    }
+
+    /**
      * Repeatedly executes a given lambda method again and again until it throws no exception anymore.
      * If the given timeout exceeds, the last thrown exception (or, if not existing, a default Exception) is thrown.
      *
@@ -237,14 +330,13 @@ trait SpinnedMinkSteps {
      */
     public function spin($lambda, $timeout)
     {
-        if(!isset($timeout)) {
+        if (!isset($timeout)) {
             $timeout = $this->getDefaultTimeoutSpinnedMink();
         }
         $time = time();
         $stopTime = $time + $timeout;
         $lastException = null;
-        while (time() < $stopTime)
-        {
+        while (time() < $stopTime) {
             try {
                 if ($lambda($this)) {
                     return;
@@ -257,9 +349,9 @@ trait SpinnedMinkSteps {
         }
 
         if (isset($lastException)) {
-            throw new \Exception("Spin function timed out after {$timeout} seconds with: " . $lastException);
+            throw new \Exception('Spin function timed out after {$timeout} seconds with: ' . $lastException);
         } else {
-            throw new \Exception("Spin function timed out after {$timeout} seconds");
+            throw new \Exception('Spin function timed out after {$timeout} seconds');
         }
     }
 }
