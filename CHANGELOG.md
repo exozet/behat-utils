@@ -4,11 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.7.0] - 2018-12-03
 ### Added
-- Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
 - Add "ConditionSteps" trait for conditional steps that mark tests as "pending" when specific conditions are not met
-- Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
 - Add "resizeWindowToResponsiveViewport" step that allows resizing the driver's browser windows for a given responsive device type
 - Add "mouseOver" step that allows hovering elements 
 - Add "fillFieldWithinDefaultTimeoutUsingJavaScript" step that allows filling input fields within a default timeout using JavaScript
@@ -19,7 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "scrolIntoViewAlignToBottom" step that allows scrolling such that a given element is at the bottom of the viewport
 - Add "clickWithinDefaultTimeoutUsingJavaScript" step that allows clicking an element via JavaScript within the default timeout configured
 - Add "assertNotPageAddressWithinSpecifiedTime" and "assertNotPageAddressWithinDefaultTimeout" steps that allow asserting that the driver is not on a given page path
- 
+
+## [0.6.0] - 2018-10-24
+### Added
+- Add "openUrl" and "openUrlWithinSpecifiedTime" steps. Both open a url and compares, within a specified time, the current url with the expected one
+- Add "actualTimeIsInSpecifiedTime" step that allows checking whether the current time is in the expected range
 ### Changed
 - Increase the default waiting interval for the SpinnedMinkSteps from 5 seconds to 15 seconds
 - Change error message in the SpinnedMinkSteps to a more descriptive one
@@ -53,6 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add "JsonApiSteps" trait for sending, receiving and asserting JSON data
 
+[0.7.0]: https://github.com/exozet/behat-utils/compare/0.6.0...0.7.0
+[0.6.0]: https://github.com/exozet/behat-utils/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/exozet/behat-utils/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/exozet/behat-utils/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/exozet/behat-utils/compare/0.2.0...0.3.0
