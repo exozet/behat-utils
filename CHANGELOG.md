@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- Fixed bug in "resizeWindowToResponsiveViewport" step that made the step unusable
+- Fix bug in "resizeWindowToResponsiveViewport" step that made the step unusable
 
 ## [0.7.0] - 2018-12-03
 ### Added
