@@ -27,18 +27,18 @@ trait WebsiteInteractionSteps
      *   protected $defaultResponsiveViewportWidths = array(
      *        'Desktop' => 1365,
      *        'Tablet'  => 1023,
-     *        'Phone'   => 640
+     *        'Mobile'  => 640
      *   );
      *
-     * @param string $deviceType one of "Desktop", "Tablet" or "Phone"
-     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Phone" to their corresponding widths
+     * @param string $deviceType one of "Desktop", "Tablet" or "Mobile"
+     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Mobile" to their corresponding widths
      */
     public function getDefaultResponsiveViewportWidths($deviceType)
     {
         $widthMapping = isset($this->defaultResponsiveViewportWidths) ? $this->defaultResponsiveViewportWidths : array(
             'Desktop' => 1823,
             'Tablet'  => 1023,
-            'Phone'   => 767
+            'Mobile'  => 767
         );
         return $widthMapping[$deviceType];
     }
