@@ -5,6 +5,7 @@ namespace Exozet\Behat\Utils\Base;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
+use PHPUnit\Framework\Assert;
 
 trait WebsiteInteractionSteps
 {
@@ -435,7 +436,7 @@ JS
      */
     public function resizeWindowToResponsiveViewport($deviceType)
     {
-        $this->assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
+        Assert::assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
             'The device type has to be one of "Desktop", "Tablet" and "Mobile".');
         $width = $this->getDefaultResponsiveViewportWidths($deviceType);
         $this->getSession()->getDriver()->resizeWindow($width, 900, $deviceType);
