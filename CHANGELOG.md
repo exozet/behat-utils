@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Fixed bug in "resizeWindowToResponsiveViewport" step that made the step unusable
+
 ## [0.7.0] - 2018-12-03
 ### Added
 - Add "ConditionSteps" trait for conditional steps that mark tests as "pending" when specific conditions are not met
@@ -55,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add "JsonApiSteps" trait for sending, receiving and asserting JSON data
 
+[Unreleased]: https://github.com/exozet/behat-utils/compare/0.7.0...HEAD
 [0.7.0]: https://github.com/exozet/behat-utils/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/exozet/behat-utils/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/exozet/behat-utils/compare/0.4.0...0.5.0
