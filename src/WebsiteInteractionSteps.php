@@ -5,6 +5,7 @@ namespace Exozet\Behat\Utils\Base;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
+use PHPUnit\Framework\Assert;
 
 trait WebsiteInteractionSteps
 {
@@ -27,18 +28,18 @@ trait WebsiteInteractionSteps
      *   protected $defaultResponsiveViewportWidths = array(
      *        'Desktop' => 1365,
      *        'Tablet'  => 1023,
-     *        'Phone'   => 640
+     *        'Mobile'  => 640
      *   );
      *
-     * @param string $deviceType one of "Desktop", "Tablet" or "Phone"
-     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Phone" to their corresponding widths
+     * @param string $deviceType one of "Desktop", "Tablet" or "Mobile"
+     * @return array a mapping of the viewport breakpoints "Desktop", "Tablet" and "Mobile" to their corresponding widths
      */
     public function getDefaultResponsiveViewportWidths($deviceType)
     {
         $widthMapping = isset($this->defaultResponsiveViewportWidths) ? $this->defaultResponsiveViewportWidths : array(
             'Desktop' => 1823,
             'Tablet'  => 1023,
-            'Phone'   => 767
+            'Mobile'  => 767
         );
         return $widthMapping[$deviceType];
     }
@@ -435,7 +436,7 @@ JS
      */
     public function resizeWindowToResponsiveViewport($deviceType)
     {
-        $this->assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
+        Assert::assertContains($deviceType, ['Desktop', 'Tablet', 'Mobile'],
             'The device type has to be one of "Desktop", "Tablet" and "Mobile".');
         $width = $this->getDefaultResponsiveViewportWidths($deviceType);
         $this->getSession()->getDriver()->resizeWindow($width, 900, $deviceType);
