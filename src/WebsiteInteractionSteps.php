@@ -73,6 +73,25 @@ trait WebsiteInteractionSteps
     }
 
     /**
+     * @see scrollIntoView
+     *
+     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the middle of the viewport$/
+     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" in der Mitte des Viewports zu haben$/
+     */
+    public function scrollIntoViewAlignToMiddle($selector)
+    {
+        $jsonSelector = json_encode($selector);
+        $this->getSession()->executeScript(
+            <<<JS
+const elem = document.querySelectorAll( {$jsonSelector} )[0];
+elem.scrollIntoView(true);
+const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+window.scrollBy(0, -viewportHeight/2);
+JS
+        );
+    }
+
+    /**
      * Waits synchronously for the given amount of seconds
      * Example: When I wait 3 seconds
      *

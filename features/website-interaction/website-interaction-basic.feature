@@ -26,6 +26,12 @@ Feature: HTML Test
     Then I see visible elements matching ".breadcrumb" in time
 
   @javascript
+  Scenario: Scroll something to the middle of the viewport
+    Given I am on "/api/html"
+    And I scroll to have ".breadcrumb" at the middle of the viewport
+    Then I see visible elements matching ".breadcrumb" in time
+
+  @javascript
   Scenario: Wait for matching elements within a specified time interval
     When I am on "/api/html/notes"
     Then I see elements matching "h1" within 4 seconds
