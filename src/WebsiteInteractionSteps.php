@@ -45,40 +45,13 @@ trait WebsiteInteractionSteps
     }
 
     /**
-     * Scroll the element matching the given selector into view, trying to align the element to the top of the viewport
-     * If $alignToTop is set to false, the step tries to align the element to the bottom of the viewport.
+     * Scroll the element matching the given selector into view, aligning the element to the middle of the viewport
      * Example: Given I scroll to ".content"
-     *
-     * @param bool $alignToTop align the element to the viewport's top when "true" (default). Otherwise, align to bottom
      *
      * @Given /^I scroll to "(?P<selector>[^"]+)"$/
      * @Given /^ich scrolle zu "(?P<selector>[^"]+)"$/
      */
-    public function scrollIntoView($selector, $alignToTop = true)
-    {
-        $this->getSession()->executeScript(
-            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop ? 'true' : 'false') . ')'
-        );
-    }
-
-    /**
-     * @see scrollIntoView
-     *
-     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the bottom of the viewport$/
-     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am unteren Ende des Viewports zu haben$/
-     */
-    public function scrolIntoViewAlignToBottom($selector)
-    {
-        $this->scrollIntoView($selector, false);
-    }
-
-    /**
-     * @see scrollIntoView
-     *
-     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the middle of the viewport$/
-     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" in der Mitte des Viewports zu haben$/
-     */
-    public function scrollIntoViewAlignToMiddle($selector)
+    public function scrollIntoView($selector)
     {
         $jsonSelector = json_encode($selector);
         $this->getSession()->executeScript(
@@ -88,6 +61,37 @@ elem.scrollIntoView(true);
 const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 window.scrollBy(0, -viewportHeight/2);
 JS
+        );
+    }
+
+    /**
+     * Scroll the element matching the given selector into view, aligning the element to the top of the viewport
+     * Example: Given I scroll to have ".content" at the top of the viewport
+     *
+     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the top of the viewport$/
+     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am oberen Ende des Viewports zu haben$/
+     */
+    public function scrollIntoViewAlignToTop($selector)
+    {
+        $this->scrollIntoViewWithPosition($selector, true);
+    }
+
+    /**
+     * Scroll the element matching the given selector into view, aligning the element to the bottom of the viewport
+     * Example: Given I scroll to have ".content" at the bottom of the viewport
+     *
+     * @Given /^I scroll to have "(?P<selector>[^"]+)" at the bottom of the viewport$/
+     * @Given /^ich scrolle, um "(?P<selector>[^"]+)" am unteren Ende des Viewports zu haben$/
+     */
+    public function scrolIntoViewAlignToBottom($selector)
+    {
+        $this->scrollIntoViewWithPosition($selector, false);
+    }
+
+    private function scrollIntoViewWithPosition($selector, $alignToTop)
+    {
+        $this->getSession()->executeScript(
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop ? 'true' : 'false') . ')'
         );
     }
 
