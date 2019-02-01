@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - Fix bug in "resizeWindowToResponsiveViewport" step that made the step unusable
+- Fix bug in "scrollIntoView" step that made it scroll to have the element at the bottom of the viewport all the time. #17
 
 ## [0.7.0] - 2018-12-03
 ### Added

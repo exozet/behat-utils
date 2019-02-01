@@ -57,7 +57,7 @@ trait WebsiteInteractionSteps
     public function scrollIntoView($selector, $alignToTop = true)
     {
         $this->getSession()->executeScript(
-            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop) ? 'true' : 'false' . ')'
+            'document.querySelectorAll(' . json_encode($selector) . ')[0].scrollIntoView(' . ($alignToTop ? 'true' : 'false') . ')'
         );
     }
 
