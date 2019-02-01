@@ -5,12 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Rename the scrolling steps to use "scroll to middle" as the default. #23
 ### Added
 - Add "scrollIntoViewAlignToMiddle" step that allows scrolling such that a given element is at the middle of the viewport
 ### Fixed
-- Fix bug in "resizeWindowToResponsiveViewport" step that made the step unusable
 - Fix bug in "scrollIntoView" step that made it scroll to have the element at the bottom of the viewport all the time. #17
 - Fix PHPUnit requirement missing in the composer.json file. #18 
+
+## [0.7.1] - 2019-01-31
+### Fixed
+- Fix bug in "resizeWindowToResponsiveViewport" step that made the step unusable
 
 ## [0.7.0] - 2018-12-03
 ### Added
@@ -63,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add "JsonApiSteps" trait for sending, receiving and asserting JSON data
 
-[Unreleased]: https://github.com/exozet/behat-utils/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/exozet/behat-utils/compare/0.7.1...HEAD
+[0.7.1]: https://github.com/exozet/behat-utils/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/exozet/behat-utils/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/exozet/behat-utils/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/exozet/behat-utils/compare/0.4.0...0.5.0

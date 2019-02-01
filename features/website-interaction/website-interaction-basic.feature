@@ -14,21 +14,21 @@ Feature: HTML Test
     Then I should see "Users"
 
   @javascript
-  Scenario: Scroll to something
+  Scenario: Scroll to something (scroll it to the middle of the viewport)
     When I am on "/api/html"
     Then I should see "hateoas-notes in HTML"
     Then I scroll to "button"
 
   @javascript
-  Scenario: Scroll something to the bottom of the viewport
+  Scenario: Scroll something to the top of the viewport
     Given I am on "/api/html"
-    And I scroll to have ".breadcrumb" at the bottom of the viewport
+    And I scroll to have ".breadcrumb" at the top of the viewport
     Then I see visible elements matching ".breadcrumb" in time
 
   @javascript
-  Scenario: Scroll something to the middle of the viewport
+  Scenario: Scroll something to the bottom of the viewport
     Given I am on "/api/html"
-    And I scroll to have ".breadcrumb" at the middle of the viewport
+    And I scroll to have ".breadcrumb" at the bottom of the viewport
     Then I see visible elements matching ".breadcrumb" in time
 
   @javascript
