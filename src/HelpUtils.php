@@ -17,13 +17,12 @@ trait HelpUtils
      */
     public function getDefaultJavascriptTimeInMilliseconds()
     {
-        $timeoutInSeconds = isset($this->defaultJavascriptTimeout) ? $this->defaultJavascriptTimeout : 5000;
-        return $timeoutInSeconds * 1000;
+        return $this->getDefaultJavascriptTime() * 1000;
     }
 
     public function getDefaultJavascriptTime()
     {
-        return 5000;
+        return isset($this->defaultJavascriptTimeout) ? $this->defaultJavascriptTimeout : 5;
     }
 
     /**
