@@ -47,7 +47,7 @@ trait HelpUtils
 
         if (!$returnValue) {
             throw new ExpectationException('The JavaScript code ' . $condition . ' did not match within ' . $time . 'ms.',
-                $this->getDriver());
+                $this->getSession()->getDriver());
         }
 
         assert($returnValue);
