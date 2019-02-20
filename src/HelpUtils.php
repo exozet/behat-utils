@@ -17,13 +17,12 @@ trait HelpUtils
      */
     public function getDefaultJavascriptTimeInMilliseconds()
     {
-        $timeoutInSeconds = isset($this->defaultJavascriptTimeout) ? $this->defaultJavascriptTimeout : 5000;
-        return $timeoutInSeconds * 1000;
+        return $this->getDefaultJavascriptTime() * 1000;
     }
 
     public function getDefaultJavascriptTime()
     {
-        return 5000;
+        return isset($this->defaultJavascriptTimeout) ? $this->defaultJavascriptTimeout : 5;
     }
 
     /**
@@ -47,8 +46,8 @@ trait HelpUtils
         );
 
         if (!$returnValue) {
-            throw new ExpectationException('The JavaScript code ' . $condition . ' did not match within ' . $time . 'ms.',
-                $this->getDriver());
+            throw new ExpectationException('The JavaScript code ' . $condition . ' did not match within ' . $time / 1000 . ' seconds.',
+                $this->getSession()->getDriver());
         }
 
         assert($returnValue);
